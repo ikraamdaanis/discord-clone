@@ -2,19 +2,21 @@
 include .env.local
 
 install: 
-	make install-client && make install-server
-
-install-client:
-	cd client && pnpm install 
+	make install-server && make install-client
 
 install-server:
-	cd server && go mod tidy
-
-dev-client:
-	cd client && pnpm dev
-
-dev-ts:
-	cd client && pnpm ts-lint
+	cd server && make dev
 
 dev-server:
-	cd server && go run main.go
+	cd server && make dev
+
+install-client:
+	cd client && make install
+
+dev-client:
+	cd client && make dev
+
+dev-ts:
+	cd client && make ts-lint
+
+
