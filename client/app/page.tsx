@@ -2,9 +2,9 @@ import { Button } from "components/ui/button";
 
 export default function Home() {
   return (
-    <main>
-      Discord
+    <div className="">
+      <p>Discord</p>
       <Button>Hello</Button>
-    </main>
+    </div>
   );
 }
