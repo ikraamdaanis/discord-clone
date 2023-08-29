@@ -7,8 +7,8 @@ import (
 )
 
 type Profile struct {
-	ID       uuid.UUID `gorm:"type:uuid;primaryKey"`
-	UserID   string    `gorm:"unique"`
+	ID       uuid.UUID `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
+	UserID   uuid.UUID `gorm:"type:uuid;unique"`
 	Name     string
 	ImageURL string `gorm:"type:text"`
 	Email    string `gorm:"type:text"`
@@ -22,13 +22,13 @@ type Profile struct {
 }
 
 type Server struct {
-	ID         uuid.UUID `gorm:"type:uuid;primaryKey"`
+	ID         uuid.UUID `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 	Name       string
 	ImageURL   string `gorm:"type:text"`
 	InviteCode string `gorm:"unique"`
 
-	ProfileID string
-	Profile   Profile `gorm:"foreignKey:ProfileID;references:ID;onDelete:CASCADE"`
+	ProfileID uuid.UUID `gorm:"type:uuid"`
+	Profile   Profile   `gorm:"foreignKey:ProfileID;references:ID;onDelete:CASCADE"`
 
 	Members  []Member
 	Channels []Channel
@@ -37,15 +37,23 @@ type Server struct {
 	UpdatedAt time.Time
 }
 
+type MemberRole string
+
+const (
+	Admin     MemberRole = "ADMIN"
+	Moderator MemberRole = "MODERATOR"
+	Guest     MemberRole = "GUEST"
+)
+
 type Member struct {
-	ID   uuid.UUID `gorm:"type:uuid;primaryKey"`
+	ID   uuid.UUID `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 	Role string    `gorm:"default:GUEST"`
 
-	ProfileID string
-	Profile   Profile `gorm:"foreignKey:ProfileID;references:ID;onDelete:CASCADE"`
+	ProfileID uuid.UUID `gorm:"type:uuid"`
+	Profile   Profile   `gorm:"foreignKey:ProfileID;references:ID;onDelete:CASCADE"`
 
-	ServerID string
-	Server   Server `gorm:"foreignKey:ServerID;references:ID;onDelete:CASCADE"`
+	ServerID uuid.UUID `gorm:"type:uuid"`
+	Server   Server    `gorm:"foreignKey:ServerID;references:ID;onDelete:CASCADE"`
 
 	Messages       []Message
 	DirectMessages []DirectMessage
@@ -66,15 +74,15 @@ const (
 )
 
 type Channel struct {
-	ID   uuid.UUID `gorm:"type:uuid;primaryKey"`
+	ID   uuid.UUID `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 	Name string
 	Type ChannelType `gorm:"default:TEXT"`
 
-	ProfileID string
-	Profile   Profile `gorm:"foreignKey:ProfileID;references:ID;onDelete:CASCADE"`
+	ProfileID uuid.UUID `gorm:"type:uuid"`
+	Profile   Profile   `gorm:"foreignKey:ProfileID;references:ID;onDelete:CASCADE"`
 
-	ServerID string
-	Server   Server `gorm:"foreignKey:ServerID;references:ID;onDelete:CASCADE"`
+	ServerID uuid.UUID `gorm:"type:uuid"`
+	Server   Server    `gorm:"foreignKey:ServerID;references:ID;onDelete:CASCADE"`
 
 	Messages []Message
 
@@ -83,16 +91,16 @@ type Channel struct {
 }
 
 type Message struct {
-	ID      uuid.UUID `gorm:"type:uuid;primaryKey"`
+	ID      uuid.UUID `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 	Content string    `gorm:"type:text"`
 
 	FileURL string `gorm:"type:text"`
 
-	MemberID string
-	Member   Member `gorm:"foreignKey:MemberID;references:ID;onDelete:CASCADE"`
+	MemberID uuid.UUID `gorm:"type:uuid"`
+	Member   Member    `gorm:"foreignKey:MemberID;references:ID;onDelete:CASCADE"`
 
-	ChannelID string
-	Channel   Channel `gorm:"foreignKey:ChannelID;references:ID;onDelete:CASCADE"`
+	ChannelID uuid.UUID `gorm:"type:uuid"`
+	Channel   Channel   `gorm:"foreignKey:ChannelID;references:ID;onDelete:CASCADE"`
 
 	Deleted bool `gorm:"default:false"`
 
@@ -101,13 +109,13 @@ type Message struct {
 }
 
 type Conversation struct {
-	ID uuid.UUID `gorm:"type:uuid;primaryKey"`
+	ID uuid.UUID `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 
-	MemberOneID string
-	MemberOne   Member `gorm:"foreignKey:MemberOneID;references:ID;onDelete:CASCADE"`
+	MemberOneID uuid.UUID `gorm:"type:uuid"`
+	MemberOne   Member    `gorm:"foreignKey:MemberOneID;references:ID;onDelete:CASCADE"`
 
-	MemberTwoID string
-	MemberTwo   Member `gorm:"foreignKey:MemberTwoID;references:ID;onDelete:CASCADE"`
+	MemberTwoID uuid.UUID `gorm:"type:uuid"`
+	MemberTwo   Member    `gorm:"foreignKey:MemberTwoID;references:ID;onDelete:CASCADE"`
 
 	DirectMessages []DirectMessage
 
@@ -116,14 +124,14 @@ type Conversation struct {
 }
 
 type DirectMessage struct {
-	ID      uuid.UUID `gorm:"type:uuid;primaryKey"`
+	ID      uuid.UUID `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 	Content string    `gorm:"type:text"`
 	FileURL string    `gorm:"type:text"`
 
-	MemberID string
-	Member   Member `gorm:"foreignKey:MemberID;references:ID;onDelete:CASCADE"`
+	MemberID uuid.UUID `gorm:"type:uuid"`
+	Member   Member    `gorm:"foreignKey:MemberID;references:ID;onDelete:CASCADE"`
 
-	ConversationID string
+	ConversationID uuid.UUID    `gorm:"type:uuid"`
 	Conversation   Conversation `gorm:"foreignKey:ConversationID;references:ID;onDelete:CASCADE"`
 
 	Deleted bool `gorm:"default:false"`
