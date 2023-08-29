@@ -46,8 +46,8 @@ const (
 )
 
 type Member struct {
-	ID   uuid.UUID `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
-	Role string    `gorm:"default:GUEST"`
+	ID   uuid.UUID  `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
+	Role MemberRole `gorm:"default:GUEST"`
 
 	ProfileID uuid.UUID `gorm:"type:uuid"`
 	Profile   Profile   `gorm:"foreignKey:ProfileID;references:ID;onDelete:CASCADE"`
