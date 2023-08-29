@@ -5,4 +5,4 @@ install:
 	go mod tidy
 
 dev:
-	go run main.go
+	go run cmd/api/main.go
