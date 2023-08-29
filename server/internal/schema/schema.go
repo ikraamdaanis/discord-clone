@@ -2,11 +2,13 @@ package schema
 
 import (
 	"time"
+
+	"github.com/google/uuid"
 )
 
 type Profile struct {
-	ID       string `gorm:"primaryKey"`
-	UserID   string `gorm:"unique"`
+	ID       uuid.UUID `gorm:"type:uuid;primaryKey"`
+	UserID   string    `gorm:"unique"`
 	Name     string
 	ImageURL string `gorm:"type:text"`
 	Email    string `gorm:"type:text"`
@@ -20,7 +22,7 @@ type Profile struct {
 }
 
 type Server struct {
-	ID         string `gorm:"primaryKey"`
+	ID         uuid.UUID `gorm:"type:uuid;primaryKey"`
 	Name       string
 	ImageURL   string `gorm:"type:text"`
 	InviteCode string `gorm:"unique"`
@@ -36,8 +38,8 @@ type Server struct {
 }
 
 type Member struct {
-	ID   string `gorm:"primaryKey"`
-	Role string `gorm:"default:GUEST"`
+	ID   uuid.UUID `gorm:"type:uuid;primaryKey"`
+	Role string    `gorm:"default:GUEST"`
 
 	ProfileID string
 	Profile   Profile `gorm:"foreignKey:ProfileID;references:ID;onDelete:CASCADE"`
@@ -64,7 +66,7 @@ const (
 )
 
 type Channel struct {
-	ID   string `gorm:"primaryKey"`
+	ID   uuid.UUID `gorm:"type:uuid;primaryKey"`
 	Name string
 	Type ChannelType `gorm:"default:TEXT"`
 
@@ -81,8 +83,8 @@ type Channel struct {
 }
 
 type Message struct {
-	ID      string `gorm:"primaryKey"`
-	Content string `gorm:"type:text"`
+	ID      uuid.UUID `gorm:"type:uuid;primaryKey"`
+	Content string    `gorm:"type:text"`
 
 	FileURL string `gorm:"type:text"`
 
@@ -99,7 +101,7 @@ type Message struct {
 }
 
 type Conversation struct {
-	ID string `gorm:"primaryKey"`
+	ID uuid.UUID `gorm:"type:uuid;primaryKey"`
 
 	MemberOneID string
 	MemberOne   Member `gorm:"foreignKey:MemberOneID;references:ID;onDelete:CASCADE"`
@@ -114,9 +116,9 @@ type Conversation struct {
 }
 
 type DirectMessage struct {
-	ID      string `gorm:"primaryKey"`
-	Content string `gorm:"type:text"`
-	FileURL string `gorm:"type:text"`
+	ID      uuid.UUID `gorm:"type:uuid;primaryKey"`
+	Content string    `gorm:"type:text"`
+	FileURL string    `gorm:"type:text"`
 
 	MemberID string
 	Member   Member `gorm:"foreignKey:MemberID;references:ID;onDelete:CASCADE"`
