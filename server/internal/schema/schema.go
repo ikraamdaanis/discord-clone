@@ -15,7 +15,7 @@ type Profile struct {
 	Members  []Member
 	Channels []Channel
 
-	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP"`
+	CreatedAt time.Time
 	UpdatedAt time.Time
 }
 
@@ -31,7 +31,7 @@ type Server struct {
 	Members  []Member
 	Channels []Channel
 
-	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP"`
+	CreatedAt time.Time
 	UpdatedAt time.Time
 }
 
@@ -51,7 +51,7 @@ type Member struct {
 	ConversationsInitiated []Conversation `gorm:"foreignKey:MemberOneID"`
 	ConversationsReceived  []Conversation `gorm:"foreignKey:MemberTwoID"`
 
-	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP"`
+	CreatedAt time.Time
 	UpdatedAt time.Time
 }
 
@@ -76,7 +76,7 @@ type Channel struct {
 
 	Messages []Message
 
-	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP"`
+	CreatedAt time.Time
 	UpdatedAt time.Time
 }
 
@@ -94,7 +94,7 @@ type Message struct {
 
 	Deleted bool `gorm:"default:false"`
 
-	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP"`
+	CreatedAt time.Time
 	UpdatedAt time.Time
 }
 
@@ -109,7 +109,7 @@ type Conversation struct {
 
 	DirectMessages []DirectMessage
 
-	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP"`
+	CreatedAt time.Time
 	UpdatedAt time.Time
 }
 
@@ -126,6 +126,6 @@ type DirectMessage struct {
 
 	Deleted bool `gorm:"default:false"`
 
-	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP"`
+	CreatedAt time.Time
 	UpdatedAt time.Time
 }
