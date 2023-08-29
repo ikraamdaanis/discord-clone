@@ -1,5 +1,5 @@
 #!make
-include ../.env.local
+include ../.env
 
 install: 
 	pnpm install 

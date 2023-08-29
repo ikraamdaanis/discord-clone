@@ -1,5 +1,5 @@
 #!make
-include .env.local
+include .env
 
 install: 
 	make install-server && make install-client
