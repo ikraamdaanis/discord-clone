@@ -1,5 +1,5 @@
 #!make
-include ../.env
+include .env
 
 install: 
 	go mod tidy
