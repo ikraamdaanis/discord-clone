@@ -7,18 +7,18 @@ import (
 )
 
 type Profile struct {
-	ID       uuid.UUID `gorm:"type:uuid;default:gen_random_uuid();primaryKey" ts_type:"string"`
-	UserID   uuid.UUID `gorm:"type:uuid;unique" ts_type:"string"`
-	Name     string
-	ImageURL string `gorm:"type:text"`
-	Email    string `gorm:"type:text"`
+	ID       uuid.UUID `gorm:"type:uuid;default:gen_random_uuid();primaryKey" ts_type:"string" json:"id"`
+	UserID   uuid.UUID `gorm:"type:uuid;unique" ts_type:"string" json:"user_id"`
+	Name     string    `json:"name"`
+	ImageURL string    `gorm:"type:text" json:"image_url"`
+	Email    string    `gorm:"type:text" json:"email"`
 
-	Servers  []Server
-	Members  []Member
-	Channels []Channel
+	Servers  []Server  `json:"servers"`
+	Members  []Member  `json:"members"`
+	Channels []Channel `json:"channels"`
 
-	CreatedAt time.Time `ts_type:"string"`
-	UpdatedAt time.Time `ts_type:"string"`
+	CreatedAt time.Time `ts_type:"string" json:"created_at"`
+	UpdatedAt time.Time `ts_type:"string" json:"updated_at"`
 }
 
 type Server struct {

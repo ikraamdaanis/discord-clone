@@ -84,16 +84,16 @@ export interface Server {
     UpdatedAt: string;
 }
 export interface Profile {
-    ID: string;
-    UserID: string;
-    Name: string;
-    ImageURL: string;
-    Email: string;
-    Servers: Server[];
-    Members: Member[];
-    Channels: Channel[];
-    CreatedAt: string;
-    UpdatedAt: string;
+    id: string;
+    user_id: string;
+    name: string;
+    image_url: string;
+    email: string;
+    servers: Server[];
+    members: Member[];
+    channels: Channel[];
+    created_at: string;
+    updated_at: string;
 }
 
 
