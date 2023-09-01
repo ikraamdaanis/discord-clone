@@ -12,76 +12,76 @@ export enum ChannelType {
     VIDEO = "VIDEO",
 }
 export interface Conversation {
-    ID: string;
-    MemberOneID: string;
-    MemberOne: Member;
-    MemberTwoID: string;
-    MemberTwo: Member;
-    DirectMessages: DirectMessage[];
-    CreatedAt: string;
-    UpdatedAt: string;
+    id: string;
+    member_one_id: string;
+    member_one: Member;
+    member_two_id: string;
+    member_two: Member;
+    direct_messages: DirectMessage[];
+    created_at: string;
+    updated_at: string;
 }
 export interface DirectMessage {
-    ID: string;
-    Content: string;
-    FileURL: string;
-    MemberID: string;
-    Member: Member;
-    ConversationID: string;
-    Conversation: Conversation;
-    Deleted: boolean;
-    CreatedAt: string;
-    UpdatedAt: string;
+    id: string;
+    content: string;
+    file_url: string;
+    member_id: string;
+    member: Member;
+    conversation_id: string;
+    conversation: Conversation;
+    deleted: boolean;
+    created_at: string;
+    updated_at: string;
 }
 export interface Channel {
-    ID: string;
-    Name: string;
-    Type: ChannelType;
-    ProfileID: string;
-    Profile: Profile;
-    ServerID: string;
-    Server: Server;
-    Messages: Message[];
-    CreatedAt: string;
-    UpdatedAt: string;
+    id: string;
+    name: string;
+    type: ChannelType;
+    profile_id: string;
+    profile: Profile;
+    server_id: string;
+    server: Server;
+    messages: Message[];
+    created_at: string;
+    updated_at: string;
 }
 export interface Message {
-    ID: string;
-    Content: string;
-    FileURL: string;
-    MemberID: string;
-    Member: Member;
-    ChannelID: string;
-    Channel: Channel;
-    Deleted: boolean;
-    CreatedAt: string;
-    UpdatedAt: string;
+    id: string;
+    content: string;
+    file_url: string;
+    member_id: string;
+    member: Member;
+    channel_id: string;
+    channel: Channel;
+    deleted: boolean;
+    created_at: string;
+    updated_at: string;
 }
 export interface Member {
-    ID: string;
-    Role: MemberRole;
-    ProfileID: string;
-    Profile: Profile;
-    ServerID: string;
-    Server: Server;
-    Messages: Message[];
-    DirectMessages: DirectMessage[];
-    ConversationsInitiated: Conversation[];
-    ConversationsReceived: Conversation[];
-    CreatedAt: string;
-    UpdatedAt: string;
+    id: string;
+    role: MemberRole;
+    profile_id: string;
+    profile: Profile;
+    server_id: string;
+    server: Server;
+    messages: Message[];
+    direct_messages: DirectMessage[];
+    conversations_initiated: Conversation[];
+    conversations_received: Conversation[];
+    created_at: string;
+    updated_at: string;
 }
 export interface Server {
-    ID: string;
-    Name: string;
-    ImageURL: string;
-    InviteCode: string;
-    ProfileID: string;
-    Profile: Profile;
-    Members: Member[];
-    Channels: Channel[];
-    CreatedAt: string;
-    UpdatedAt: string;
+    id: string;
+    name: string;
+    image_url: string;
+    invite_code: string;
+    profile_id: string;
+    profile: Profile;
+    members: Member[];
+    channels: Channel[];
+    created_at: string;
+    updated_at: string;
 }
 export interface Profile {
     id: string;
