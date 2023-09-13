@@ -2,10 +2,10 @@
 include .env
 
 install: 
-	pnpm install 
+	bun install 
 
 dev:
-	PORT="${CLIENT_PORT}" pnpm dev
+	PORT="${CLIENT_PORT}" bun dev
 
 ts-lint:
-	pnpm ts-lint
+	bun ts-lint
