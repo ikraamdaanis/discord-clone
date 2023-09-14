@@ -6,6 +6,7 @@ const nextConfig = {
   },
   images: {
     dangerouslyAllowSVG: true,
+    domains: ["uploadthing.com", "utfs.io"],
     contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"
   }
