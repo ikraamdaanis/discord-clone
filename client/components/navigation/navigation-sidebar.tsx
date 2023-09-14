@@ -27,18 +27,20 @@ export const NavigationSidebar = async () => {
 
   return (
     <div className="text-primary flex h-full w-full flex-col items-center space-y-4 py-3 dark:bg-[#1e1f22]">
-      <ScrollArea className="w-full">
-        {servers.map(server => {
-          return (
-            <div key={server.id} className="mb-4">
-              <NavigationItem
-                id={server.id}
-                name={server.name}
-                imageUrl={server.imageUrl}
-              />
-            </div>
-          );
-        })}
+      <ScrollArea>
+        <div className="flex w-full flex-col items-center gap-3">
+          {servers.map(server => {
+            return (
+              <div key={server.id}>
+                <NavigationItem
+                  id={server.id}
+                  name={server.name}
+                  imageUrl={server.imageUrl}
+                />
+              </div>
+            );
+          })}
+        </div>
       </ScrollArea>
       <Separator className="mx-auto h-[2px] w-10 rounded-md bg-zinc-300 dark:bg-zinc-700" />
       <NavigationAction />

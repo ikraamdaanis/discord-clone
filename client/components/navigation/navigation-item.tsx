@@ -27,9 +27,9 @@ export const NavigationItem = ({ id, imageUrl, name }: NavigationItemProps) => {
       >
         <div
           className={cn(
-            "bg-primary absolute left-0 w-[4px] rounded-r-full transition-all",
-            params?.serverId !== id && "group-hover:h-[20px]",
-            params?.serverId === id ? "h-12" : "h-[8px]"
+            "bg-primary absolute left-0 h-0 w-[4px] rounded-r-full transition-all",
+            params?.serverId !== id && "group-hover:h-4",
+            params?.serverId === id && "h-12"
           )}
         />
         <div
