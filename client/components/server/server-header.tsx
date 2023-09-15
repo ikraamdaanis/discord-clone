@@ -8,6 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "components/ui/dropdown-menu";
+import { useModal } from "hooks/use-modal-store";
 import {
   ChevronDown,
   LogOut,
@@ -29,6 +30,8 @@ export const ServerHeader = ({
   server,
   role = MemberRole.GUEST
 }: ServerHeaderProps) => {
+  const [onOpen] = useModal(state => [state.onOpen]);
+
   const isAdmin = role === MemberRole.ADMIN;
   const isModerator = [
     MemberRole.ADMIN as string,
@@ -45,7 +48,12 @@ export const ServerHeader = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 space-y-[2px] text-xs font-medium text-black dark:text-neutral-400">
         {isModerator && (
-          <DropdownMenuItem className="cursor-pointer px-3 py-2 text-sm text-indigo-600 dark:text-indigo-400">
+          <DropdownMenuItem
+            className="cursor-pointer px-3 py-2 text-sm text-indigo-600 dark:text-indigo-400"
+            onClick={() => {
+              onOpen("invite", { server });
+            }}
+          >
             Invite People
             <UserPlus className="ml-auto h-4 w-4" />
           </DropdownMenuItem>

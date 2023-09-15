@@ -25,7 +25,6 @@ import { useModal } from "hooks/use-modal-store";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { shallow } from "zustand/shallow";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -39,10 +38,7 @@ const formSchema = z.object({
 export const CreateServerModal = () => {
   const router = useRouter();
 
-  const [isOpen, onClose, type] = useModal(
-    state => [state.isOpen, state.onClose, state.type],
-    shallow
-  );
+  const { isOpen, onClose, type } = useModal();
 
   const isModalOpen = isOpen && type === "createServer";
 
