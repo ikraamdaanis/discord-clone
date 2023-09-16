@@ -15,8 +15,6 @@ export async function PATCH(
 
     const { name, imageUrl } = await req.json();
 
-    console.log(name);
-
     const server = await db.server.update({
       where: {
         id: params.serverId,
@@ -27,8 +25,6 @@ export async function PATCH(
         imageUrl
       }
     });
-
-    console.log(server);
 
     return NextResponse.json(server);
   } catch (error) {
