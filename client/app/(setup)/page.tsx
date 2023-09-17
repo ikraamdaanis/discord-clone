@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { db } from "lib/db";
 import { initialProfile } from "lib/initialProfile";
 import { InitialModal } from "components/modals/initial-modal";
+import { RedirectType } from "next/dist/client/components/redirect";
 
 const SetupPage = async () => {
   const profile = await initialProfile();
@@ -17,7 +18,7 @@ const SetupPage = async () => {
   });
 
   if (server) {
-    return redirect(`/servers/${server.id}`);
+    return redirect(`/servers/${server.id}`, RedirectType.push);
   }
 
   return <InitialModal />;
