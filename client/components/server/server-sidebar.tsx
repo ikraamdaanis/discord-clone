@@ -60,8 +60,10 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
     ?.role;
 
   return (
-    <div className="text-primary flex h-full w-full flex-col bg-[#f2f3f5] dark:bg-[#2b2d31]">
-      <ServerHeader server={server} role={role} />
+    <div className="fixed inset-y-0 z-20 h-full w-60 flex-col max-md:hidden md:flex">
+      <div className="text-primary flex h-full w-full flex-col bg-[#f2f3f5] dark:bg-[#2b2d31]">
+        <ServerHeader server={server} role={role} />
+      </div>
     </div>
   );
 };
