@@ -49,7 +49,8 @@ export const CreateChannelModal = () => {
   const router = useRouter();
   const params = useParams();
 
-  const { isOpen, onClose, type } = useModal();
+  const { isOpen, onClose, type, data } = useModal();
+  const { channelType } = data;
 
   const isModalOpen = isOpen && type === "createChannel";
 
@@ -58,6 +59,10 @@ export const CreateChannelModal = () => {
     defaultValues: {
       name: "",
       type: ChannelType.TEXT
+    },
+    values: {
+      name: "",
+      type: channelType || ChannelType.TEXT
     }
   });
 
