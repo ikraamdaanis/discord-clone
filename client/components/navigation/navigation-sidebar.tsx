@@ -26,36 +26,34 @@ export const NavigationSidebar = async () => {
   });
 
   return (
-    <div className="fixed inset-y-0 z-30 h-full w-[72px] flex-col max-md:hidden md:flex">
-      <div className="text-primary flex h-full w-full flex-col items-center space-y-4 bg-[#e3e5e8] py-3 dark:bg-[#1e1f22]">
-        <ScrollArea>
-          <div className="flex w-full flex-col items-center gap-3">
-            {servers.map(server => {
-              return (
-                <div key={server.id}>
-                  <NavigationItem
-                    id={server.id}
-                    name={server.name}
-                    imageUrl={server.imageUrl}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </ScrollArea>
-        <Separator className="mx-auto h-[2px] w-10 rounded-md bg-zinc-300 dark:bg-zinc-700" />
-        <NavigationAction />
-        <div className="mt-auto flex flex-col items-center gap-y-4 pb-3">
-          <ThemeToggle />
-          <UserButton
-            afterSignOutUrl="/"
-            appearance={{
-              elements: {
-                avatarBox: "h-12 w-12"
-              }
-            }}
-          />
+    <div className="text-primary flex h-full w-full flex-col items-center space-y-4 bg-[#e3e5e8] py-3 dark:bg-[#1e1f22]">
+      <ScrollArea>
+        <div className="flex w-full flex-col items-center gap-3">
+          {servers.map(server => {
+            return (
+              <div key={server.id}>
+                <NavigationItem
+                  id={server.id}
+                  name={server.name}
+                  imageUrl={server.imageUrl}
+                />
+              </div>
+            );
+          })}
         </div>
+      </ScrollArea>
+      <Separator className="mx-auto h-[2px] w-10 rounded-md bg-zinc-300 dark:bg-zinc-700" />
+      <NavigationAction />
+      <div className="mt-auto flex flex-col items-center gap-y-4 pb-3">
+        <ThemeToggle />
+        <UserButton
+          afterSignOutUrl="/"
+          appearance={{
+            elements: {
+              avatarBox: "h-12 w-12"
+            }
+          }}
+        />
       </div>
     </div>
   );
