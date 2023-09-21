@@ -1,5 +1,5 @@
 import { auth } from "@clerk/nextjs";
-import { createUploadthing, type FileRouter } from "uploadthing/next";
+import { createUploadthing } from "uploadthing/next";
 
 const f = createUploadthing();
 
@@ -12,7 +12,7 @@ function handleAuth() {
 }
 
 // FileRouter for your app, can contain multiple FileRoutes
-export const ourFileRouter: FileRouter = {
+export const ourFileRouter = {
   serverImage: f({ image: { maxFileSize: "4MB", maxFileCount: 1 } })
     .middleware(() => handleAuth())
     .onUploadComplete(() => {}),
