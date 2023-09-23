@@ -90,7 +90,7 @@ export const ChatItem = ({
 
   const isLoading = form.formState.isSubmitting;
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const url = qs.stringifyUrl({
         url: `${socketUrl}/${id}`,
@@ -104,7 +104,7 @@ export const ChatItem = ({
     } catch (error) {
       console.log(error);
     }
-  };
+  }
 
   useEffect(() => {
     form.reset({
