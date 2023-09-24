@@ -2,6 +2,7 @@ import { Server as NetServer } from "http";
 import { NextApiRequest } from "next";
 import { Server as ServerIO } from "socket.io";
 import { NextApiResponseServerIo } from "types";
+import cors from "cors";
 
 export const config = {
   api: {
@@ -9,12 +10,13 @@ export const config = {
   }
 };
 
-const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
+function ioHandler(req: NextApiRequest, res: NextApiResponseServerIo) {
   if (!res.socket.server.io) {
     const path = "/api/socket/io";
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const httpServer: NetServer = res.socket.server as any;
-
+    const corsMiddleware = cors();
+    corsMiddleware(req, res, () => {});
     const io = new ServerIO(httpServer, {
       path: path,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -30,6 +32,6 @@ const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
   }
 
   res.end();
-};
+}
 
 export default ioHandler;
