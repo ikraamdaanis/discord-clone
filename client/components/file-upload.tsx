@@ -5,6 +5,7 @@ import { OurFileRouter } from "app/api/uploadthing/core";
 import { UploadDropzone } from "lib/uploadthing";
 import { FileIcon, X } from "lucide-react";
 import Image from "next/image";
+import { UploadFileResponse } from "uploadthing/client";
 
 type FileUploadProps = {
   endpoint: keyof OurFileRouter;
@@ -66,8 +67,8 @@ export const FileUpload = ({ endpoint, value, onChange }: FileUploadProps) => {
   return (
     <UploadDropzone
       endpoint={endpoint}
-      onClientUploadComplete={res => {
-        onChange(res?.[0].url);
+      onClientUploadComplete={(res?: UploadFileResponse[]) => {
+        return onChange(res?.[0].url);
       }}
       onUploadError={(error: Error) => {
         console.error("Upload error: ", error);
