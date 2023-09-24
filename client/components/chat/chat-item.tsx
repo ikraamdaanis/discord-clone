@@ -1,23 +1,22 @@
 "use client";
 
-import * as z from "zod";
-import axios from "axios";
-import qs from "query-string";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Member, MemberRole, Profile } from "@prisma/client";
-import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation";
-
-import { UserAvatar } from "components/user-avatar";
+import axios from "axios";
 import { ActionTooltip } from "components/action-tooltip";
-import { cn } from "lib/utils";
+import { Button } from "components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "components/ui/form";
 import { Input } from "components/ui/input";
-import { Button } from "components/ui/button";
+import { UserAvatar } from "components/user-avatar";
 import { useModal } from "hooks/use-modal-store";
+import { cn } from "lib/utils";
+import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
+import Image from "next/image";
+import { useParams, useRouter } from "next/navigation";
+import qs from "query-string";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
 type ChatItemProps = {
   id: string;
@@ -62,10 +61,7 @@ export const ChatItem = ({
   const router = useRouter();
 
   const onMemberClick = () => {
-    if (member.id === currentMember.id) {
-      return;
-    }
-
+    if (member.id === currentMember.id) return;
     router.push(`/servers/${params?.serverId}/conversations/${member.id}`);
   };
 

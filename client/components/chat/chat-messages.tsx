@@ -7,6 +7,7 @@ import { Loader2, ServerCrash } from "lucide-react";
 import { ChatWelcome } from "components/chat/chat-welcome";
 import { useChatQuery } from "hooks/use-chat-query";
 import { ChatItem } from "components/chat/chat-item";
+import { useChatSocket } from "hooks/use-chat-socket";
 
 const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
@@ -53,6 +54,8 @@ export const ChatMessages = ({
       paramKey,
       paramValue
     });
+
+  useChatSocket({ addKey, updateKey, queryKey });
 
   if (status === "loading") {
     return (
