@@ -12,6 +12,7 @@ import { Form, FormControl, FormField, FormItem } from "components/ui/form";
 import { Input } from "components/ui/input";
 import { useModal } from "hooks/use-modal-store";
 import { EmojiPicker } from "components/emoji-picker";
+import { useSocket } from "components/providers/socket-provider";
 
 interface ChatInputProps {
   apiUrl: string;
@@ -26,6 +27,7 @@ const formSchema = z.object({
 
 export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
   const { onOpen } = useModal();
+  const { socket } = useSocket();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -45,6 +47,15 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
       });
 
       await axios.post(url, values);
+      // await axios.get(`http://localhost:5000${url}`);
+
+      socket?.send(
+        JSON.stringify({
+          body: values,
+          url,
+          query
+        })
+      );
 
       form.reset();
       router.refresh();

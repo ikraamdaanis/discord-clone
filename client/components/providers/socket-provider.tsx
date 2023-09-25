@@ -1,6 +1,5 @@
 "use client";
 
-import { DefaultEventsMap } from "node_modules/socket.io/dist/typed-events";
 import {
   ReactNode,
   createContext,
@@ -8,10 +7,9 @@ import {
   useEffect,
   useState
 } from "react";
-import { io as ClientIO, Socket } from "socket.io-client";
 
 type SocketContextType = {
-  socket: Socket<DefaultEventsMap, DefaultEventsMap> | null;
+  socket: WebSocket | null;
   isConnected: boolean;
 };
 
@@ -24,31 +22,48 @@ export const useSocket = () => {
   return useContext(SocketContext);
 };
 
-export const SocketProvider = ({ children }: { children: ReactNode }) => {
-  const [socket, setSocket] = useState<Socket<
-    DefaultEventsMap,
-    DefaultEventsMap
-  > | null>(null);
+export const SocketProvider = ({
+  profileId,
+  children
+}: {
+  profileId: string;
+  children: ReactNode;
+}) => {
+  const [socket, setSocket] = useState<WebSocket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    const socketInstance = ClientIO(process.env.NEXT_PUBLIC_SITE_URL!, {
-      path: "/api/socket/io",
-      addTrailingSlash: false
-    });
+    const socket = new WebSocket(`ws://localhost:5000/?profileId=${profileId}`);
 
-    socketInstance.on("connect", () => {
+    socket.addEventListener("open", () => {
       setIsConnected(true);
     });
 
-    socketInstance.on("disconnect", () => {
+    socket.addEventListener("close", () => {
       setIsConnected(false);
     });
 
-    setSocket(socketInstance);
+    setSocket(socket);
+
+    // const socketInstance = ClientIO(process.env.NEXT_PUBLIC_SITE_URL!, {
+    //   path: "/api/socket/io",
+    //   addTrailingSlash: false
+    // });
+    // socketInstance.on("connect", () => {
+    //   setIsConnected(true);
+    // });
+    // socketInstance.on("disconnect", () => {
+    //   setIsConnected(false);
+    // });
+    // setSocket(socketInstance);
+    // return () => {
+    //   socketInstance.disconnect();
+    // };
 
     return () => {
-      socketInstance.disconnect();
+      if (socket.readyState === 1) {
+        socket.close();
+      }
     };
   }, []);
 
