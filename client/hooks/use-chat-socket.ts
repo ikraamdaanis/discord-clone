@@ -1,18 +1,18 @@
-// import { Member, Message, Profile } from "@prisma/client";
+import { Member, Message, Profile } from "@prisma/client";
 import { useQueryClient } from "@tanstack/react-query";
 import { useSocket } from "components/providers/socket-provider";
 import { useEffect } from "react";
 
-// type MessageWithMemberWithProfile = Message & {
-//   member: Member & {
-//     profile: Profile;
-//   };
-// };
+type MessageWithMemberWithProfile = Message & {
+  member: Member & {
+    profile: Profile;
+  };
+};
 
-// type QueryData = {
-//   pageParams: string[];
-//   pages: { items: MessageWithMemberWithProfile[]; cursor: null }[];
-// };
+type QueryData = {
+  pageParams: string[];
+  pages: { items: MessageWithMemberWithProfile[]; cursor: null }[];
+};
 
 type ChatSocketProps = {
   addKey: string;
@@ -31,14 +31,48 @@ export const useChatSocket = ({
   useEffect(() => {
     if (!socket) return;
 
+    console.log("hi", addKey);
+
     socket.addEventListener("message", e => {
       // Data sent will be a string so parse into an object
       const event = JSON.parse(e.data);
 
+      console.log("ADD KEY: ", event);
+
       // Server sets a type for each message
       switch (event.type) {
         case addKey:
-          console.log("ADD KEY: ", addKey);
+          console.log("ADD KEY: ", addKey, event.data);
+          queryClient.setQueryData(
+            [queryKey],
+            (oldData: QueryData | undefined) => {
+              if (!oldData || !oldData?.pages?.length) {
+                return {
+                  ...oldData,
+                  pageParams: [],
+                  pages: [
+                    {
+                      items: [event.data],
+                      cursor: null
+                    }
+                  ]
+                };
+              }
+
+              const newData = [...oldData.pages];
+
+              newData[0] = {
+                ...newData[0],
+                items: [event.data, ...newData[0].items],
+                cursor: null
+              };
+
+              return {
+                ...oldData,
+                pages: newData
+              };
+            }
+          );
           break;
       }
     });

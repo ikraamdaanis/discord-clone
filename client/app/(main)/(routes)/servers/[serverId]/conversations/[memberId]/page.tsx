@@ -69,7 +69,7 @@ const MemberPage = async ({ params, searchParams }: MemberPageProps) => {
           <ChatMessages
             member={currentMember}
             name={otherMember.profile.name}
-            chatId={conversation.id}
+            channelId={conversation.id}
             type="conversation"
             apiUrl="/api/direct-messages"
             paramKey="conversationId"

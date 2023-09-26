@@ -21,7 +21,7 @@ type MessageWithMemberWithProfile = Message & {
 interface ChatMessagesProps {
   name: string;
   member: Member;
-  chatId: string;
+  channelId: string;
   apiUrl: string;
   socketUrl: string;
   socketQuery: Record<string, string>;
@@ -33,7 +33,7 @@ interface ChatMessagesProps {
 export const ChatMessages = ({
   name,
   member,
-  chatId,
+  channelId,
   apiUrl,
   socketUrl,
   socketQuery,
@@ -41,9 +41,9 @@ export const ChatMessages = ({
   paramValue,
   type
 }: ChatMessagesProps) => {
-  const queryKey = `chat:${chatId}`;
-  const addKey = `chat:${chatId}:messages`;
-  const updateKey = `chat:${chatId}:messages:update`;
+  const queryKey = `chat:${channelId}`;
+  const addKey = `chat:${channelId}:messages`;
+  const updateKey = `chat:${channelId}:messages:update`;
 
   const chatRef = useRef<ElementRef<"div">>(null);
   const bottomRef = useRef<ElementRef<"div">>(null);

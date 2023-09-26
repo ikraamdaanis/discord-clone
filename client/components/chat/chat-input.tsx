@@ -14,12 +14,19 @@ import { useModal } from "hooks/use-modal-store";
 import { EmojiPicker } from "components/emoji-picker";
 import { useSocket } from "components/providers/socket-provider";
 
-interface ChatInputProps {
+type AddMessagePayload = {
+  key: string;
+  serverId: string;
+  channelId: string;
+  content: string;
+};
+
+type ChatInputProps = {
   apiUrl: string;
   query: Record<string, string>;
   name: string;
   type: "conversation" | "channel";
-}
+};
 
 const formSchema = z.object({
   content: z.string().min(1)
@@ -41,21 +48,22 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const url = qs.stringifyUrl({
-        url: apiUrl,
-        query
-      });
+      // const url = qs.stringifyUrl({
+      //   url: apiUrl,
+      //   query
+      // });
 
-      await axios.post(url, values);
+      // await axios.post(url, values);
       // await axios.get(`http://localhost:5000${url}`);
 
-      socket?.send(
-        JSON.stringify({
-          body: values,
-          url,
-          query
-        })
-      );
+      const payload: AddMessagePayload = {
+        key: `chat:${query.channelId}:messages`,
+        serverId: query.serverId,
+        channelId: query.channelId,
+        content: values.content
+      };
+
+      socket?.send(JSON.stringify(payload));
 
       form.reset();
       router.refresh();
