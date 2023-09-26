@@ -1,8 +1,10 @@
 import { ServerWebSocket } from "bun";
 import { currentProfile } from "./currentProfile";
+import { AddMessagePayload, createMessage } from "./createMessage";
 
 type Args = {
   profileId: string;
+  key: string;
 };
 
 let users: string[] = [];
@@ -14,8 +16,6 @@ const server = Bun.serve<Args>({
 
     const params = url.searchParams;
 
-    console.log("URL: ", url.pathname, params);
-
     const profileId = params.get("profileId");
 
     const success = server.upgrade(req, {
@@ -23,32 +23,55 @@ const server = Bun.serve<Args>({
       data: { profileId }
     });
 
-    console.log("HE: ", profileId);
-
     return success
       ? undefined
       : new Response("Upgrade failed :(", { status: 500 });
   },
   websocket: {
     open(ws) {
-      // console.log("OPEN: ", ws);
+      console.log("OPEN DATA: ", ws.data);
 
       if (
         ws.data?.profileId &&
         !users.find(user => user === ws.data.profileId)
       ) {
-        console.log("GO: ", ws.data);
         users.push(ws.data.profileId);
       }
     }, // a socket is opened
     async message(ws: ServerWebSocket<Args>, message) {
-      // console.log("WS: ", ws);
+      console.log("WS: ", message);
 
-      const data = JSON.parse(message as string);
+      const data = JSON.parse(
+        message as string
+      ) as unknown as AddMessagePayload;
+
+      if (ws.data.key) {
+        ws.subscribe(ws.data.key);
+      }
+
       if (ws.data.profileId) {
         const profile = await currentProfile(ws.data.profileId);
-        console.log("MESSAGE: ", profile?.email);
+        console.log("MESSAGE: ", profile?.email, data);
+
+        if (!profile) return;
+
+        if (data.content) {
+          const message = await createMessage({
+            ...data,
+            profile
+          });
+
+          if (message) {
+            ws.send(JSON.stringify(message));
+
+            console.log("MESSAGE: ", message, data.key);
+          }
+        }
       }
+      ws.publish(
+        data.key,
+        JSON.stringify({ type: "MESSAGES_ADD", data: message })
+      );
     }, // a message is received
     close(ws, code, message) {
       console.log("CLOSE: ");
