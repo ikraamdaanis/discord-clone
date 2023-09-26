@@ -65,7 +65,7 @@ export const SocketProvider = ({
         socket.close();
       }
     };
-  }, []);
+  }, [profileId]);
 
   return (
     <SocketContext.Provider value={{ socket, isConnected }}>
