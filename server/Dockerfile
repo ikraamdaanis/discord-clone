@@ -2,7 +2,7 @@ FROM oven/bun
 
 WORKDIR /usr/src/index
 
-COPY package*.json bun.lockb ./
+COPY package*.json bun.lockb prisma ./
 RUN bun install
 RUN bunx prisma generate
 COPY . .
