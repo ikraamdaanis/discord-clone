@@ -57,7 +57,9 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
 
       form.reset();
 
-      inputRef.current?.focus();
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
     } catch (error) {
       console.log(error);
     }
@@ -89,9 +91,6 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                     {...field}
                     ref={inputRef}
                     autoFocus
-                    onFocus={e => {
-                      console.log("FOCUS: ", e);
-                    }}
                   />
                   <div className="absolute right-8 top-7">
                     <EmojiPicker
