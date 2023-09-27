@@ -7,6 +7,7 @@ import { Form, FormControl, FormField, FormItem } from "components/ui/form";
 import { Input } from "components/ui/input";
 import { useModal } from "hooks/use-modal-store";
 import { Plus } from "lucide-react";
+import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -32,6 +33,8 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
   const { onOpen } = useModal();
   const { socket } = useSocket();
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -53,6 +56,8 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
       socket?.send(JSON.stringify(payload));
 
       form.reset();
+
+      inputRef.current?.focus();
     } catch (error) {
       console.log(error);
     }
@@ -82,7 +87,11 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                       type === "conversation" ? name : "#" + name
                     }`}
                     {...field}
+                    ref={inputRef}
                     autoFocus
+                    onFocus={e => {
+                      console.log("FOCUS: ", e);
+                    }}
                   />
                   <div className="absolute right-8 top-7">
                     <EmojiPicker
