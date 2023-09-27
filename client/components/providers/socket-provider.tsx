@@ -33,7 +33,9 @@ export const SocketProvider = ({
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    const socket = new WebSocket(`ws://localhost:5000/?profileId=${profileId}`);
+    const socket = new WebSocket(
+      `${process.env.NEXT_PUBLIC_WEBSOCKET_URL}/?profileId=${profileId}`
+    );
 
     socket.addEventListener("open", () => {
       setIsConnected(true);
