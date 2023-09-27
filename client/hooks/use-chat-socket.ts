@@ -14,6 +14,11 @@ type QueryData = {
   pages: { items: MessageWithMemberWithProfile[]; cursor: null }[];
 };
 
+type SocketAddMessage = {
+  key: string;
+  data: MessageWithMemberWithProfile;
+};
+
 type ChatSocketProps = {
   addKey: string;
   updateKey: string;
@@ -35,12 +40,12 @@ export const useChatSocket = ({
 
     socket.addEventListener("message", e => {
       // Data sent will be a string so parse into an object
-      const event = JSON.parse(e.data);
+      const event: SocketAddMessage = JSON.parse(e.data);
 
-      console.log("ADD KEY: ", event);
+      console.log("DATA: ", event);
 
       // Server sets a type for each message
-      switch (event.type) {
+      switch (event.key) {
         case addKey:
           console.log("ADD KEY: ", addKey, event.data);
           queryClient.setQueryData(

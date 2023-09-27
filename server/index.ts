@@ -29,8 +29,6 @@ const server = Bun.serve<Args>({
   },
   websocket: {
     open(ws) {
-      console.log("OPEN DATA: ", ws.data);
-
       if (
         ws.data?.profileId &&
         !users.find(user => user === ws.data.profileId)
@@ -39,14 +37,12 @@ const server = Bun.serve<Args>({
       }
     }, // a socket is opened
     async message(ws: ServerWebSocket<Args>, message) {
-      console.log("WS: ", message);
-
       const data = JSON.parse(
         message as string
       ) as unknown as AddMessagePayload;
 
-      if (ws.data.key) {
-        ws.subscribe(ws.data.key);
+      if (data.key) {
+        ws.subscribe(data.key);
       }
 
       if (ws.data.profileId) {
@@ -62,9 +58,11 @@ const server = Bun.serve<Args>({
           });
 
           if (message) {
-            ws.send(JSON.stringify(message));
-
-            console.log("MESSAGE: ", message, data.key);
+            const payload = {
+              key: data.key,
+              data: message
+            };
+            ws.send(JSON.stringify(payload));
           }
         }
       }
