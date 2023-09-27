@@ -1,6 +1,10 @@
 {
   "name": "server",
   "module": "index.ts",
+  "scripts": {
+    "start": "bun index.ts",
+    "dev": "bun --hot index.ts"
+  },
   "devDependencies": {
     "bun-types": "latest"
   },
