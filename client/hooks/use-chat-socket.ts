@@ -36,8 +36,6 @@ export const useChatSocket = ({
   useEffect(() => {
     if (!socket) return;
 
-    console.log("hi", addKey);
-
     socket.addEventListener("message", e => {
       // Data sent will be a string so parse into an object
       const event: SocketAddMessage = JSON.parse(e.data);
@@ -47,7 +45,6 @@ export const useChatSocket = ({
       // Server sets a type for each message
       switch (event.key) {
         case addKey:
-          console.log("ADD KEY: ", addKey, event.data);
           queryClient.setQueryData(
             [queryKey],
             (oldData: QueryData | undefined) => {

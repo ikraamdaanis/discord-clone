@@ -1,18 +1,15 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
-import qs from "query-string";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-
+import { EmojiPicker } from "components/emoji-picker";
+import { useSocket } from "components/providers/socket-provider";
 import { Form, FormControl, FormField, FormItem } from "components/ui/form";
 import { Input } from "components/ui/input";
 import { useModal } from "hooks/use-modal-store";
-import { EmojiPicker } from "components/emoji-picker";
-import { useSocket } from "components/providers/socket-provider";
 
 type AddMessagePayload = {
   key: string;
@@ -48,14 +45,6 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      // const url = qs.stringifyUrl({
-      //   url: apiUrl,
-      //   query
-      // });
-
-      // await axios.post(url, values);
-      // await axios.get(`http://localhost:5000${url}`);
-
       const payload: AddMessagePayload = {
         key: `chat:${query.channelId}:messages`,
         serverId: query.serverId,
@@ -96,6 +85,7 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                       type === "conversation" ? name : "#" + name
                     }`}
                     {...field}
+                    autoFocus
                   />
                   <div className="absolute right-8 top-7">
                     <EmojiPicker
