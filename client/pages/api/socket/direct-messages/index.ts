@@ -93,7 +93,7 @@ export default async function handler(
 
     return res.status(200).json(message);
   } catch (error) {
-    console.log("[DIRECT_MESSAGES_POST]", error);
+    console.log("Direct message update error: ", error);
     return res.status(500).json({ message: "Internal Error" });
   }
 }
