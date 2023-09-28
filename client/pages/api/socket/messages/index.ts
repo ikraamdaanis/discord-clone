@@ -1,4 +1,4 @@
-import { currentProfilePages } from "lib/current-profile-pages";
+import { currentProfilePages } from "features/profile/utils/";
 import { db } from "lib/db";
 import { NextApiRequest } from "next";
 import { NextApiResponseServerIo } from "types";

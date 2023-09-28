@@ -1,5 +1,5 @@
 import { redirectToSignIn } from "@clerk/nextjs";
-import { currentProfile } from "lib/current-profile";
+import { currentProfile } from "features/profile/utils/currentProfile";
 import { db } from "lib/db";
 import { redirect } from "next/navigation";
 

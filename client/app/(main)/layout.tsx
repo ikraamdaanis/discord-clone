@@ -1,6 +1,6 @@
 import { NavigationSidebar } from "components/navigation/NavigationSidebar";
 import { SocketProvider } from "components/providers/socket-provider";
-import { currentProfile } from "lib/current-profile";
+import { currentProfile } from "features/profile/utils/currentProfile";
 import { ReactNode } from "react";
 
 const MainLayout = async ({ children }: { children: ReactNode }) => {

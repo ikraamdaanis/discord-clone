@@ -6,7 +6,7 @@ import { ServerSearch } from "components/server/server-search";
 import { ServerSection } from "components/server/server-section";
 import { ScrollArea } from "components/ui/scroll-area";
 import { Separator } from "components/ui/separator";
-import { currentProfile } from "lib/current-profile";
+import { currentProfile } from "features/profile/utils/currentProfile";
 import { db } from "lib/db";
 import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from "lucide-react";
 import { redirect } from "next/navigation";
@@ -80,7 +80,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
     ?.role;
 
   return (
-    <div className="text-primary flex h-full w-full flex-col bg-[#F2F3F5] dark:bg-[#2B2D31]">
+    <div className="flex h-full w-full flex-col bg-[#F2F3F5] text-primary dark:bg-[#2B2D31]">
       <ServerHeader server={server} role={role} />
       <ScrollArea className="flex-1 px-3">
         <div className="mt-2">

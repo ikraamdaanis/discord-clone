@@ -3,7 +3,7 @@ import { NavigationAction } from "components/navigation/navigation-action";
 import { NavigationItem } from "components/navigation/navigation-item";
 import { ScrollArea } from "components/ui/scroll-area";
 import { Separator } from "components/ui/separator";
-import { currentProfile } from "lib/current-profile";
+import { currentProfile } from "features/profile/utils/currentProfile";
 import { db } from "lib/db";
 import { redirect } from "next/navigation";
 

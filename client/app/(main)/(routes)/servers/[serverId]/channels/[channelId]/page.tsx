@@ -4,7 +4,7 @@ import { ChatHeader } from "components/chat/ChatHeader";
 import { ChatInput } from "components/chat/chat-input";
 import { ChatMessages } from "components/chat/ChatMessages";
 import { MediaRoom } from "components/media-room";
-import { currentProfile } from "lib/current-profile";
+import { currentProfile } from "features/profile/utils/currentProfile";
 import { db } from "lib/db";
 import { redirect } from "next/navigation";
 

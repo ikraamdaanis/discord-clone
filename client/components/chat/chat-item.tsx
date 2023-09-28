@@ -7,7 +7,7 @@ import { ActionTooltip } from "components/action-tooltip";
 import { Button } from "components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "components/ui/form";
 import { Input } from "components/ui/input";
-import { UserAvatar } from "components/user-avatar";
+import { UserAvatar } from "features/profile/components/ProfileAvatar";
 import { useModal } from "hooks/use-modal-store";
 import { cn } from "lib/utils";
 import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
@@ -149,7 +149,7 @@ export const ChatItem = ({
               href={fileUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-secondary relative mt-2 flex aspect-square h-48 w-48 items-center overflow-hidden rounded-md border"
+              className="relative mt-2 flex aspect-square h-48 w-48 items-center overflow-hidden rounded-md border bg-secondary"
             >
               <Image
                 src={fileUrl}
@@ -162,7 +162,7 @@ export const ChatItem = ({
             </a>
           )}
           {isPDF && (
-            <div className="bg-background/10 relative mt-2 flex items-center rounded-md p-2">
+            <div className="relative mt-2 flex items-center rounded-md bg-background/10 p-2">
               <FileIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400" />
               <a
                 href={fileUrl}

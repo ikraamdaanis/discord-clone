@@ -1,7 +1,7 @@
 import { ChatVideoButton } from "components/chat/chat-video-button";
 import { MobileToggle } from "components/mobile-toggle";
 import { SocketIndicator } from "components/socket-indicator";
-import { UserAvatar } from "components/user-avatar";
+import { UserAvatar } from "features/profile/components/ProfileAvatar";
 import { Hash } from "lucide-react";
 
 type ChatHeaderProps = {
