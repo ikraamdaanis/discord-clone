@@ -8,7 +8,7 @@ const MainLayout = async ({ children }: { children: ReactNode }) => {
 
   return (
     <SocketProvider profileId={profile?.id || ""}>
-      <div className="h-full">
+      <div className="h-full bg-white dark:bg-[#313338]">
         <div className="fixed inset-y-0 z-30 h-full w-[72px] flex-col max-md:hidden md:flex">
           <NavigationSidebar />
         </div>
