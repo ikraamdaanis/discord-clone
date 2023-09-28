@@ -1,7 +1,6 @@
 import { UserButton } from "@clerk/nextjs";
 import { NavigationAction } from "components/navigation/navigation-action";
 import { NavigationItem } from "components/navigation/navigation-item";
-import { ThemeToggle } from "components/theme-toggle";
 import { ScrollArea } from "components/ui/scroll-area";
 import { Separator } from "components/ui/separator";
 import { currentProfile } from "lib/current-profile";
@@ -26,7 +25,7 @@ export const NavigationSidebar = async () => {
   });
 
   return (
-    <div className="text-primary flex h-full w-full flex-col items-center space-y-4 bg-[#e3e5e8] py-3 dark:bg-[#1e1f22]">
+    <div className="flex h-full w-full flex-col items-center space-y-4 bg-[#e3e5e8] py-3 text-primary dark:bg-[#1e1f22]">
       <ScrollArea>
         <div className="flex w-full flex-col items-center gap-3">
           {servers.map(server => {
@@ -42,10 +41,9 @@ export const NavigationSidebar = async () => {
           })}
         </div>
       </ScrollArea>
-      <Separator className="mx-auto h-[2px] w-10 rounded-md bg-zinc-300 dark:bg-zinc-700" />
       <NavigationAction />
+      <Separator className="mx-auto h-[2px] w-10 rounded-md bg-zinc-300 dark:bg-zinc-700" />
       <div className="mt-auto flex flex-col items-center gap-y-4 pb-3">
-        <ThemeToggle />
         <UserButton
           afterSignOutUrl="/"
           appearance={{

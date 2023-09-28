@@ -1,4 +1,4 @@
-import { NavigationSidebar } from "components/navigation/navigation-sidebar";
+import { NavigationSidebar } from "components/navigation/NavigationSidebar";
 import { SocketProvider } from "components/providers/socket-provider";
 import { currentProfile } from "lib/current-profile";
 import { ReactNode } from "react";
