@@ -15,6 +15,8 @@ export const useChatQuery = ({
   paramValue
 }: ChatQueryProps) => {
   async function fetchMessages({ pageParam = undefined }) {
+    console.log("PARAM:", pageParam);
+
     const url = qs.stringifyUrl(
       {
         url: apiUrl,
@@ -27,13 +29,13 @@ export const useChatQuery = ({
     );
 
     const res = await fetch(url);
+
     return res.json();
   }
 
   return useInfiniteQuery({
     queryKey: [queryKey],
     queryFn: fetchMessages,
-    getNextPageParam: lastPage => lastPage?.nextCursor
-    // refetchInterval: 1000
+    getNextPageParam: lastPage => lastPage?.nextCursor || false
   });
 };

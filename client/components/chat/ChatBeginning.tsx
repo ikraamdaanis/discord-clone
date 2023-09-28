@@ -5,9 +5,9 @@ type ChatWelcomeProps = {
   type: "channel" | "conversation";
 };
 
-export const ChatWelcome = ({ name, type }: ChatWelcomeProps) => {
+export const ChatBeginning = ({ name, type }: ChatWelcomeProps) => {
   return (
-    <div className="mb-4 space-y-2 px-4">
+    <div className="space-y-2 p-4 pt-8">
       {type === "channel" && (
         <div className="flex h-[75px] w-[75px] items-center justify-center rounded-full bg-zinc-500 dark:bg-zinc-700">
           <Hash className="h-12 w-12 text-white" />

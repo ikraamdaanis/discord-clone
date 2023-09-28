@@ -1,7 +1,7 @@
 import { redirectToSignIn } from "@clerk/nextjs";
-import { ChatHeader } from "components/chat/chat-header";
+import { ChatHeader } from "components/chat/ChatHeader";
 import { ChatInput } from "components/chat/chat-input";
-import { ChatMessages } from "components/chat/chat-messages";
+import { ChatMessages } from "components/chat/ChatMessages";
 import { MediaRoom } from "components/media-room";
 import { getOrCreateConversation } from "lib/conversation";
 import { currentProfile } from "lib/current-profile";
