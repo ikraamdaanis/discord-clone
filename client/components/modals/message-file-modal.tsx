@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { FileUpload } from "components/file-upload";
+import { FileUpload } from "features/chat/components/FileUpload";
 import { Button } from "components/ui/button";
 import {
   Dialog,

@@ -2,10 +2,10 @@
 
 import { Member, Message, Profile } from "@prisma/client";
 import { InfiniteScroller } from "components/InfiniteScroller";
-import { ChatBeginning } from "components/chat/ChatBeginning";
 import { format } from "date-fns";
-import { useChatSocket } from "hooks/use-chat-socket";
-import { useChatQuery } from "hooks/useChatQuery";
+import { ChatBeginning } from "features/chat/components/ChatBeginning";
+import { useChatQuery } from "features/chat/hooks/useChatQuery";
+import { useChatSocket } from "features/chat/hooks/useChatSocket";
 import { Loader2, ServerCrash } from "lucide-react";
 import { ChatItem } from "./chat-item";
 
@@ -29,6 +29,7 @@ interface ChatMessagesProps {
   type: "channel" | "conversation";
 }
 
+/** Displays the messages in a channel or direct messages. */
 export const ChatMessages = ({
   name,
   member,

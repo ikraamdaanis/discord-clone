@@ -25,6 +25,10 @@ type ChatSocketProps = {
   queryKey: string;
 };
 
+/**
+ * Subscribes to a websocket to listen to message creations and updates
+ * in a channel or a direct conversation.
+ */
 export const useChatSocket = ({
   addKey,
   updateKey,
@@ -77,36 +81,6 @@ export const useChatSocket = ({
       }
     });
 
-    // socket.on(addKey, (message: MessageWithMemberWithProfile) => {
-    //   queryClient.setQueryData([queryKey], (oldData: QueryData | undefined) => {
-    //     if (!oldData || !oldData?.pages?.length) {
-    //       return {
-    //         ...oldData,
-    //         pageParams: [],
-    //         pages: [
-    //           {
-    //             items: [message],
-    //             cursor: null
-    //           }
-    //         ]
-    //       };
-    //     }
-
-    //     const newData = [...oldData.pages];
-
-    //     newData[0] = {
-    //       ...newData[0],
-    //       items: [message, ...newData[0].items],
-    //       cursor: null
-    //     };
-
-    //     return {
-    //       ...oldData,
-    //       pages: newData
-    //     };
-    //   });
-    // });
-
     // socket.on(updateKey, (message: MessageWithMemberWithProfile) => {
     //   queryClient.setQueriesData(
     //     [queryKey],
@@ -135,10 +109,5 @@ export const useChatSocket = ({
     //     }
     //   );
     // });
-
-    // return () => {
-    //   socket.off(addKey);
-    //   socket.off(updateKey);
-    // };
   }, [addKey, queryClient, queryKey, socket, updateKey]);
 };

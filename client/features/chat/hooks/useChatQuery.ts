@@ -8,6 +8,7 @@ type ChatQueryProps = {
   paramValue: string;
 };
 
+/** Query to fetch messages from a channel or direct messages. */
 export const useChatQuery = ({
   queryKey,
   apiUrl,

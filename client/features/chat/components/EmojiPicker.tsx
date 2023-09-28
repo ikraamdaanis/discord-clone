@@ -1,16 +1,16 @@
 "use client";
 
-import { Smile } from "lucide-react";
-import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
-import { useTheme } from "next-themes";
-
+import Picker from "@emoji-mart/react";
 import { Popover, PopoverContent, PopoverTrigger } from "components/ui/popover";
+import { Smile } from "lucide-react";
+import { useTheme } from "next-themes";
 
 interface EmojiPickerProps {
   onChange: (value: string) => void;
 }
 
+/** Emoji picker for the chat. */
 export const EmojiPicker = ({ onChange }: EmojiPickerProps) => {
   const { resolvedTheme } = useTheme();
 

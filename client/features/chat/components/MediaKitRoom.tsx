@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useUser } from "@clerk/nextjs";
 import { LiveKitRoom, VideoConference } from "@livekit/components-react";
 import "@livekit/components-styles";
-import { useUser } from "@clerk/nextjs";
 import { Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 type MediaRoomProps = {
   chatId: string;
@@ -12,7 +12,8 @@ type MediaRoomProps = {
   audio: boolean;
 };
 
-export const MediaRoom = ({ chatId, video, audio }: MediaRoomProps) => {
+/** Audio/video chatroom via LiveKit. */
+export const MediaKitRoom = ({ chatId, video, audio }: MediaRoomProps) => {
   const { user } = useUser();
 
   const [token, setToken] = useState("");

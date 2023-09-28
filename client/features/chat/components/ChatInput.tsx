@@ -1,10 +1,10 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { EmojiPicker } from "components/emoji-picker";
 import { useSocket } from "components/providers/socket-provider";
 import { Form, FormControl, FormField, FormItem } from "components/ui/form";
 import { Input } from "components/ui/input";
+import { EmojiPicker } from "features/chat/components/EmojiPicker";
 import { useModal } from "hooks/use-modal-store";
 import { Plus } from "lucide-react";
 import { useRef } from "react";
@@ -29,6 +29,7 @@ const formSchema = z.object({
   content: z.string().min(1)
 });
 
+/** Input for sending messages in a channel or direct message. */
 export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
   const { onOpen } = useModal();
   const { socket } = useSocket();
@@ -78,7 +79,7 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                   <button
                     type="button"
                     onClick={() => onOpen("messageFile", { apiUrl, query })}
-                    className="absolute left-8 top-7 flex h-[24px] w-[24px] items-center justify-center rounded-full bg-zinc-500 p-1 transition hover:bg-zinc-600 dark:bg-zinc-400 dark:hover:bg-zinc-300"
+                    className="absolute left-8 top-7 flex h-6 w-6 items-center justify-center rounded-full bg-zinc-500 p-1 transition hover:bg-zinc-600 dark:bg-zinc-400 dark:hover:bg-zinc-300"
                   >
                     <Plus className="text-white dark:text-[#313338]" />
                   </button>

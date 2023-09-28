@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FileUpload } from "components/file-upload";
+import { FileUpload } from "features/chat/components/FileUpload";
 import { Button } from "components/ui/button";
 import {
   Dialog,
@@ -108,7 +108,7 @@ export const InitialModal = () => {
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className="dark:text-secondary/70 text-xs font-bold uppercase text-zinc-500">
+                      <FormLabel className="text-xs font-bold uppercase text-zinc-500 dark:text-secondary/70">
                         Server Name
                       </FormLabel>
                       <FormControl>

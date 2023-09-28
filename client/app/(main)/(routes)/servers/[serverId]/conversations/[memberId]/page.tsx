@@ -1,8 +1,8 @@
 import { redirectToSignIn } from "@clerk/nextjs";
-import { ChatHeader } from "components/chat/ChatHeader";
-import { ChatInput } from "components/chat/chat-input";
-import { ChatMessages } from "components/chat/ChatMessages";
-import { MediaRoom } from "components/media-room";
+import { ChatHeader } from "features/chat/components/ChatHeader";
+import { ChatInput } from "features/chat/components/ChatInput";
+import { ChatMessages } from "features/chat/components/ChatMessages";
+import { MediaKitRoom } from "features/chat/components/MediaKitRoom";
 import { getOrCreateConversation } from "lib/conversation";
 import { currentProfile } from "features/profile/utils/currentProfile";
 import { db } from "lib/db";
@@ -62,7 +62,7 @@ const MemberPage = async ({ params, searchParams }: MemberPageProps) => {
         type="conversation"
       />
       {searchParams.video && (
-        <MediaRoom chatId={conversation.id} video={true} audio={true} />
+        <MediaKitRoom chatId={conversation.id} video={true} audio={true} />
       )}
       {!searchParams.video && (
         <>

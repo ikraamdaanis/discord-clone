@@ -1,9 +1,9 @@
 import { redirectToSignIn } from "@clerk/nextjs";
 import { ChannelType } from "@prisma/client";
-import { ChatHeader } from "components/chat/ChatHeader";
-import { ChatInput } from "components/chat/chat-input";
-import { ChatMessages } from "components/chat/ChatMessages";
-import { MediaRoom } from "components/media-room";
+import { ChatHeader } from "features/chat/components/ChatHeader";
+import { ChatInput } from "features/chat/components/ChatInput";
+import { ChatMessages } from "features/chat/components/ChatMessages";
+import { MediaKitRoom } from "features/chat/components/MediaKitRoom";
 import { currentProfile } from "features/profile/utils/currentProfile";
 import { db } from "lib/db";
 import { redirect } from "next/navigation";
@@ -74,10 +74,10 @@ const ChannelPage = async ({ params }: ChannelPageProps) => {
         </>
       )}
       {channel.type === ChannelType.AUDIO && (
-        <MediaRoom chatId={channel.id} video={false} audio={true} />
+        <MediaKitRoom chatId={channel.id} video={false} audio={true} />
       )}
       {channel.type === ChannelType.VIDEO && (
-        <MediaRoom chatId={channel.id} video={true} audio={true} />
+        <MediaKitRoom chatId={channel.id} video={true} audio={true} />
       )}
     </div>
   );

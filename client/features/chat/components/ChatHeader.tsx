@@ -1,6 +1,6 @@
-import { ChatVideoButton } from "components/chat/chat-video-button";
 import { MobileToggle } from "components/mobile-toggle";
-import { SocketIndicator } from "components/socket-indicator";
+import { SocketIndicator } from "features/chat/components/SocketIndicator";
+import { ChatVideoButton } from "features/chat/components/chat-video-button";
 import { UserAvatar } from "features/profile/components/ProfileAvatar";
 import { Hash } from "lucide-react";
 
@@ -11,6 +11,7 @@ type ChatHeaderProps = {
   imageUrl?: string;
 };
 
+/** Header for channels and direct messages. */
 export const ChatHeader = ({
   serverId,
   name,

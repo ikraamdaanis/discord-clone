@@ -13,6 +13,7 @@ type FileUploadProps = {
   onChange: (url?: string) => void;
 };
 
+/** File uploader for images and PDFs. */
 export const FileUpload = ({ endpoint, value, onChange }: FileUploadProps) => {
   const fileType = value?.split(".").pop();
 
@@ -41,7 +42,7 @@ export const FileUpload = ({ endpoint, value, onChange }: FileUploadProps) => {
 
   if (value && fileType === "pdf") {
     return (
-      <div className="bg-background/10 relative mt-2 flex items-center rounded-md p-2">
+      <div className="relative mt-2 flex items-center rounded-md bg-background/10 p-2">
         <FileIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400" />
         <a
           href={value}
