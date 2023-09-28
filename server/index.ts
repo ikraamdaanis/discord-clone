@@ -47,7 +47,6 @@ const server = Bun.serve<Args>({
 
       if (ws.data.profileId) {
         const profile = await currentProfile(ws.data.profileId);
-        console.log("MESSAGE: ", profile?.email, data);
 
         if (!profile) return;
 
@@ -72,8 +71,6 @@ const server = Bun.serve<Args>({
       );
     }, // a message is received
     close(ws, code, message) {
-      console.log("CLOSE: ");
-
       users = users.filter(user => user !== ws.data.profileId);
     }, // a socket is closed
     drain(ws) {} // the socket is ready to receive more data
@@ -81,10 +78,5 @@ const server = Bun.serve<Args>({
 });
 
 const socket = new WebSocket(`ws://localhost:${process.env.PORT || 5000}/`);
-
-socket.addEventListener("message", event => {
-  console.log("event");
-  console.log(event.data);
-});
 
 console.log(`Listening on http://localhost:${server.port}...`);

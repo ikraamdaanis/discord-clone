@@ -40,8 +40,6 @@ export const useChatSocket = ({
       // Data sent will be a string so parse into an object
       const event: SocketAddMessage = JSON.parse(e.data);
 
-      console.log("DATA: ", event);
-
       // Server sets a type for each message
       switch (event.key) {
         case addKey:
