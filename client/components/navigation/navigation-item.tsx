@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { cn } from "lib/utils";
-import { ActionTooltip } from "components/action-tooltip";
+import { ActionTooltip } from "components/ActionTooltip";
 import { useParams, useRouter } from "next/navigation";
 
 interface NavigationItemProps {
@@ -27,7 +27,7 @@ export const NavigationItem = ({ id, imageUrl, name }: NavigationItemProps) => {
       >
         <div
           className={cn(
-            "bg-primary absolute left-0 h-0 w-[4px] rounded-r-full transition-all",
+            "absolute left-0 h-0 w-[4px] rounded-r-full bg-primary transition-all",
             params?.serverId !== id && "group-hover:h-4",
             params?.serverId === id && "h-12"
           )}
@@ -36,7 +36,7 @@ export const NavigationItem = ({ id, imageUrl, name }: NavigationItemProps) => {
           className={cn(
             "group relative mx-3 flex h-12 w-12 overflow-hidden rounded-[24px] transition-all group-hover:rounded-[16px]",
             params?.serverId === id &&
-              "bg-primary/10 text-primary rounded-[16px]"
+              "rounded-[16px] bg-primary/10 text-primary"
           )}
         >
           <Image fill src={imageUrl} alt="Channel icon" sizes="48px" />

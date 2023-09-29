@@ -4,7 +4,8 @@ import { Button } from "components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "components/ui/sheet";
 import { Menu } from "lucide-react";
 
-export const MobileToggle = ({ serverId }: { serverId: string }) => {
+/** Sidebar toggler for mobile view. */
+export const SidebarToggle = ({ serverId }: { serverId: string }) => {
   return (
     <Sheet>
       <SheetTrigger asChild>

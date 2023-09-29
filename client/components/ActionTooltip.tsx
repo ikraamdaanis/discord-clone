@@ -13,6 +13,7 @@ interface ActionTooltipProps {
   align?: "start" | "center" | "end";
 }
 
+/** Generic tooltip. */
 export const ActionTooltip = ({
   label,
   children,

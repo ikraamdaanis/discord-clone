@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Member, MemberRole, Profile } from "@prisma/client";
 import axios from "axios";
-import { ActionTooltip } from "components/action-tooltip";
+import { ActionTooltip } from "components/ActionTooltip";
 import { Button } from "components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "components/ui/form";
 import { Input } from "components/ui/input";

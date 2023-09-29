@@ -1,4 +1,4 @@
-import { MobileToggle } from "components/mobile-toggle";
+import { SidebarToggle } from "components/SidebarToggle";
 import { SocketIndicator } from "features/chat/components/SocketIndicator";
 import { ChatVideoButton } from "features/chat/components/chat-video-button";
 import { UserAvatar } from "features/profile/components/ProfileAvatar";
@@ -20,7 +20,7 @@ export const ChatHeader = ({
 }: ChatHeaderProps) => {
   return (
     <div className="text-md flex h-12 min-h-[48px] items-center border-b-2 border-neutral-200 px-3 font-semibold dark:border-neutral-800">
-      <MobileToggle serverId={serverId} />
+      <SidebarToggle serverId={serverId} />
       {type === "channel" && (
         <Hash className="mr-2 h-5 w-5 text-zinc-500 dark:text-zinc-400" />
       )}
