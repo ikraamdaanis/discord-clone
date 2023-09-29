@@ -1,5 +1,5 @@
 import { MemberRole } from "@prisma/client";
-import { currentProfilePages } from "features/profile/utils/";
+import { currentProfilePages } from "features/profile/utils/currentProfilePages";
 import { db } from "lib/db";
 import { NextApiRequest } from "next";
 import { NextApiResponseServerIo } from "types";
