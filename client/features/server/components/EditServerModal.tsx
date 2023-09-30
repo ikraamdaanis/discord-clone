@@ -35,18 +35,24 @@ const formSchema = z.object({
   })
 });
 
-export const CreateServerModal = () => {
+/** Form to update the server. */
+export const EditServerModal = () => {
   const router = useRouter();
 
-  const { isOpen, onClose, type } = useModal();
+  const { isOpen, onClose, type, data } = useModal();
+  const { server } = data;
 
-  const isModalOpen = isOpen && type === "createServer";
+  const isModalOpen = isOpen && type === "editServer";
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       imageUrl: ""
+    },
+    values: {
+      name: server?.name || "",
+      imageUrl: server?.imageUrl || ""
     }
   });
 
@@ -54,7 +60,7 @@ export const CreateServerModal = () => {
 
   async function handleSubmit(values: z.infer<typeof formSchema>) {
     try {
-      await axios.post("/api/servers", values);
+      await axios.patch(`/api/servers/${server?.id}`, values);
 
       handleClose();
       router.refresh();
@@ -74,7 +80,7 @@ export const CreateServerModal = () => {
       <DialogContent className="overflow-hidden bg-white p-0 text-black">
         <DialogHeader className="px-6 pt-8">
           <DialogTitle className="text-center text-2xl font-bold">
-            Create your server
+            Edit server
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
             Give your server a personality with a name and an image. You can
@@ -130,7 +136,7 @@ export const CreateServerModal = () => {
             </div>
             <DialogFooter className="bg-gray-100 px-6 py-4">
               <Button variant="primary" disabled={isLoading}>
-                Create Server
+                Save
               </Button>
             </DialogFooter>
           </form>

@@ -18,6 +18,7 @@ const roleIconMap = {
   [MemberRole.ADMIN]: <ShieldAlert className="ml-2 h-4 w-4 text-rose-500" />
 };
 
+/** Displays a member's name and avatar and links to the conversation page. */
 export const ServerMember = ({ member }: ServerMemberProps) => {
   const params = useParams();
   const router = useRouter();

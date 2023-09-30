@@ -1,6 +1,6 @@
 import { redirectToSignIn } from "@clerk/nextjs";
-import { ServerSidebar } from "components/server/server-sidebar";
 import { currentProfile } from "features/profile/utils/currentProfile";
+import { ServerSidebar } from "features/server/components/ServerSidebar";
 import { db } from "lib/db";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";

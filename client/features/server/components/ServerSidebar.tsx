@@ -1,12 +1,12 @@
 import { ChannelType, MemberRole } from "@prisma/client";
-import { ServerChannel } from "components/server/server-channel";
-import { ServerHeader } from "components/server/server-header";
-import { ServerMember } from "components/server/server-member";
-import { ServerSearch } from "components/server/server-search";
-import { ServerSection } from "components/server/server-section";
 import { ScrollArea } from "components/ui/scroll-area";
 import { Separator } from "components/ui/separator";
 import { currentProfile } from "features/profile/utils/currentProfile";
+import { ServerChannel } from "features/server/components/ServerChannel";
+import { ServerMember } from "features/server/components/ServerMember";
+import { ServerSearch } from "features/server/components/ServerSearch";
+import { SidebarHeader } from "features/server/components/SidebarHeader";
+import { SidebarSection } from "features/server/components/SidebarSection";
 import { db } from "lib/db";
 import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from "lucide-react";
 import { redirect } from "next/navigation";
@@ -29,6 +29,7 @@ const roleIconMap = {
   [MemberRole.ADMIN]: <ShieldAlert className="mr-2 h-4 w-4 text-rose-500" />
 };
 
+/** Sidebar for the servers. Displays a list of the server's channels. */
 export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
   const profile = await currentProfile();
 
@@ -81,7 +82,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
 
   return (
     <div className="flex h-full w-full flex-col bg-[#F2F3F5] text-primary dark:bg-[#2B2D31]">
-      <ServerHeader server={server} role={role} />
+      <SidebarHeader server={server} role={role} />
       <ScrollArea className="flex-1 px-3">
         <div className="mt-2">
           <ServerSearch
@@ -128,7 +129,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
         <Separator className="my-2 rounded-md bg-zinc-200 dark:bg-zinc-700" />
         {!!textChannels?.length && (
           <div className="mb-2">
-            <ServerSection
+            <SidebarSection
               sectionType="channels"
               channelType={ChannelType.TEXT}
               role={role}
@@ -148,7 +149,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
         )}
         {!!audioChannels?.length && (
           <div className="mb-2">
-            <ServerSection
+            <SidebarSection
               sectionType="channels"
               channelType={ChannelType.AUDIO}
               role={role}
@@ -168,7 +169,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
         )}
         {!!videoChannels?.length && (
           <div className="mb-2">
-            <ServerSection
+            <SidebarSection
               sectionType="channels"
               channelType={ChannelType.VIDEO}
               role={role}
@@ -188,7 +189,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
         )}
         {!!members?.length && (
           <div className="mb-2">
-            <ServerSection
+            <SidebarSection
               sectionType="members"
               role={role}
               label="Members"

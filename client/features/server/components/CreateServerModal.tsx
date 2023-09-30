@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { FileUpload } from "features/chat/components/FileUpload";
 import { Button } from "components/ui/button";
 import {
   Dialog,
@@ -21,6 +20,7 @@ import {
   FormMessage
 } from "components/ui/form";
 import { Input } from "components/ui/input";
+import { FileUpload } from "features/chat/components/FileUpload";
 import { useModal } from "hooks/useModal";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -35,23 +35,19 @@ const formSchema = z.object({
   })
 });
 
-export const EditServerModal = () => {
+/** Form to create a server. */
+export const CreateServerModal = () => {
   const router = useRouter();
 
-  const { isOpen, onClose, type, data } = useModal();
-  const { server } = data;
+  const { isOpen, onClose, type } = useModal();
 
-  const isModalOpen = isOpen && type === "editServer";
+  const isModalOpen = isOpen && type === "createServer";
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       imageUrl: ""
-    },
-    values: {
-      name: server?.name || "",
-      imageUrl: server?.imageUrl || ""
     }
   });
 
@@ -59,7 +55,7 @@ export const EditServerModal = () => {
 
   async function handleSubmit(values: z.infer<typeof formSchema>) {
     try {
-      await axios.patch(`/api/servers/${server?.id}`, values);
+      await axios.post("/api/servers", values);
 
       handleClose();
       router.refresh();
@@ -79,7 +75,7 @@ export const EditServerModal = () => {
       <DialogContent className="overflow-hidden bg-white p-0 text-black">
         <DialogHeader className="px-6 pt-8">
           <DialogTitle className="text-center text-2xl font-bold">
-            Edit server
+            Create your server
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
             Give your server a personality with a name and an image. You can
@@ -135,7 +131,7 @@ export const EditServerModal = () => {
             </div>
             <DialogFooter className="bg-gray-100 px-6 py-4">
               <Button variant="primary" disabled={isLoading}>
-                Save
+                Create Server
               </Button>
             </DialogFooter>
           </form>

@@ -4,7 +4,6 @@ import { ChannelType, MemberRole } from "@prisma/client";
 import { ActionTooltip } from "components/ActionTooltip";
 import { useModal } from "hooks/useModal";
 import { Plus, Settings } from "lucide-react";
-import React from "react";
 import { ServerWithMembersWithProfiles } from "types";
 
 type ServerSectionProps = {
@@ -15,7 +14,8 @@ type ServerSectionProps = {
   server?: ServerWithMembersWithProfiles;
 };
 
-export const ServerSection = ({
+/** Used to display different sections in the server sidebar. */
+export const SidebarSection = ({
   label,
   role,
   sectionType,

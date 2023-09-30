@@ -1,7 +1,7 @@
 import { NavigationSidebar } from "components/navigation/NavigationSidebar";
-import { ServerSidebar } from "components/server/server-sidebar";
 import { Button } from "components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "components/ui/sheet";
+import { ServerSidebar } from "features/server/components/ServerSidebar";
 import { Menu } from "lucide-react";
 
 /** Sidebar toggler for mobile view. */

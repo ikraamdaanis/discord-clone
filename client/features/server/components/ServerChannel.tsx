@@ -19,6 +19,7 @@ type ServerChannelProps = {
   role?: MemberRole;
 };
 
+/** Displays a channel's name and links to the channel chat page. */
 export const ServerChannel = ({
   channel,
   server,

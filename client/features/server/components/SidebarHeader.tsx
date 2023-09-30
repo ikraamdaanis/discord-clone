@@ -18,7 +18,6 @@ import {
   UserPlus,
   Users
 } from "lucide-react";
-import React from "react";
 import { ServerWithMembersWithProfiles } from "types";
 
 type ServerHeaderProps = {
@@ -26,7 +25,8 @@ type ServerHeaderProps = {
   role?: MemberRole;
 };
 
-export const ServerHeader = ({
+/** Header for the server sidebar which displays the server and admin controls. */
+export const SidebarHeader = ({
   server,
   role = MemberRole.GUEST
 }: ServerHeaderProps) => {

@@ -14,7 +14,8 @@ import { useModal } from "hooks/useModal";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export const DeleteServerModal = () => {
+/** Confirmation modal for a member leaving a server. */
+export const LeaveServerModal = () => {
   const router = useRouter();
 
   const { isOpen, onClose, type, data } = useModal();
@@ -22,16 +23,15 @@ export const DeleteServerModal = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const isModalOpen = isOpen && type === "deleteServer";
+  const isModalOpen = isOpen && type === "leaveServer";
 
   async function handleClick() {
     try {
       setIsLoading(true);
 
-      await axios.delete(`/api/servers/${server?.id}`);
+      await axios.patch(`/api/servers/${server?.id}/leave`);
 
       onClose();
-      router.refresh();
       router.push("/");
     } catch (error) {
       console.error(error);
@@ -45,14 +45,14 @@ export const DeleteServerModal = () => {
       <DialogContent className="overflow-hidden bg-white p-0 text-black">
         <DialogHeader className="px-6 pt-8">
           <DialogTitle className="text-center text-2xl font-bold">
-            Delete Server
+            Leave Server
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
-            Are you sure you want to delete{" "}
+            Are you sure you want to leave{" "}
             <span className="font-semibold text-indigo-500">
               {server?.name}
             </span>
-            ? The server will be permanently deleted.
+            ?
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="bg-gray-100 px-6 py-4">
@@ -70,7 +70,7 @@ export const DeleteServerModal = () => {
               onClick={() => handleClick()}
               className="bg-red-500 text-white hover:bg-red-500/90"
             >
-              Delete Server
+              Leave Server
             </Button>
           </div>
         </DialogFooter>
