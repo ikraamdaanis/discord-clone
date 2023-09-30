@@ -10,9 +10,9 @@ import "./globals.css";
 const font = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Discord",
+  title: "Discourse",
   description:
-    "Discord is the easiest way to communicate over voice, video, and text. Chat, hang out, and stay close with your friends and communities."
+    "Discourse is the easiest way to communicate over voice, video, and text. Chat, hang out, and stay close with your friends and communities."
 };
 
 export default async function RootLayout({
@@ -28,7 +28,7 @@ export default async function RootLayout({
             attribute="class"
             defaultTheme="dark"
             enableSystem
-            storageKey="discord-theme"
+            storageKey="discourse-theme"
           >
             <ModalProvider />
             <QueryProvider>{children}</QueryProvider>

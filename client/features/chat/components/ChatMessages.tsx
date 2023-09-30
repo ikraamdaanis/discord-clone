@@ -8,6 +8,7 @@ import { useChatQuery } from "features/chat/hooks/useChatQuery";
 import { useChatSocket } from "features/chat/hooks/useChatSocket";
 import { Loader2, ServerCrash } from "lucide-react";
 import { ChatMessage } from "./ChatMessage";
+import { ConvoLogo } from "components/ConvoLogo";
 
 const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
@@ -58,13 +59,10 @@ export const ChatMessages = ({
 
   useChatSocket({ queryKey, addKey, updateKey });
 
-  if (status === "loading") {
+  if (status == "loading") {
     return (
       <div className="flex flex-1 flex-col items-center justify-center">
-        <Loader2 className="my-4 h-7 w-7 animate-spin text-zinc-500" />
-        <p className="text-xs text-zinc-500 dark:text-zinc-400">
-          Loading messages...
-        </p>
+        <ConvoLogo className="h-20 w-20 animate-pulse" />
       </div>
     );
   }

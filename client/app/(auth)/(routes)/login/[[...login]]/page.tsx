@@ -2,7 +2,7 @@ import { SignIn } from "@clerk/nextjs";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Login | Discord"
+  title: "Login | Discourse"
 };
 
 export default function Page() {

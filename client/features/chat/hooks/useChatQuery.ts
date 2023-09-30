@@ -35,6 +35,7 @@ export const useChatQuery = ({
   return useInfiniteQuery({
     queryKey: [queryKey],
     queryFn: fetchMessages,
-    getNextPageParam: lastPage => lastPage?.nextCursor || false
+    getNextPageParam: lastPage => lastPage?.nextCursor || false,
+    retryOnMount: true
   });
 };

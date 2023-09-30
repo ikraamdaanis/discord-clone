@@ -6,6 +6,7 @@ import { ChatMessages } from "features/chat/components/ChatMessages";
 import { MediaKitRoom } from "features/chat/components/MediaKitRoom";
 import { currentProfile } from "features/profile/utils/currentProfile";
 import { db } from "lib/db";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 type ChannelPageProps = {
@@ -14,6 +15,23 @@ type ChannelPageProps = {
     channelId: string;
   };
 };
+
+export async function generateMetadata({
+  params
+}: ChannelPageProps): Promise<Metadata> {
+  const channel = await db.channel.findUnique({
+    where: {
+      id: params?.channelId
+    },
+    include: {
+      server: true
+    }
+  });
+
+  return {
+    title: `Discourse | #${channel?.name} | ${channel?.server.name}`
+  };
+}
 
 const ChannelPage = async ({ params }: ChannelPageProps) => {
   const profile = await currentProfile();
