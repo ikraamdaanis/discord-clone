@@ -8,7 +8,7 @@ import { Button } from "components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "components/ui/form";
 import { Input } from "components/ui/input";
 import { UserAvatar } from "features/profile/components/ProfileAvatar";
-import { useModal } from "hooks/use-modal-store";
+import { useModal } from "hooks/useModal";
 import { cn } from "lib/utils";
 import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
 import Image from "next/image";
@@ -43,7 +43,8 @@ const formSchema = z.object({
   content: z.string().min(1)
 });
 
-export const ChatItem = ({
+/** Displays a single message in a server or direct message. */
+export const ChatMessage = ({
   id,
   content,
   member,

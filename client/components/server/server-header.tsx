@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "components/ui/dropdown-menu";
-import { useModal } from "hooks/use-modal-store";
+import { useModal } from "hooks/useModal";
 import {
   ChevronDown,
   LogOut,

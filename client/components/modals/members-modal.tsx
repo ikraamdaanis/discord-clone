@@ -22,7 +22,7 @@ import {
 } from "components/ui/dropdown-menu";
 import { ScrollArea } from "components/ui/scroll-area";
 import { UserAvatar } from "features/profile/components/ProfileAvatar";
-import { useModal } from "hooks/use-modal-store";
+import { useModal } from "hooks/useModal";
 import { cn } from "lib/utils";
 import {
   Check,

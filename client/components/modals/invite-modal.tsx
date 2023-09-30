@@ -10,11 +10,12 @@ import {
 } from "components/ui/dialog";
 import { Input } from "components/ui/input";
 import { Label } from "components/ui/label";
-import { useModal } from "hooks/use-modal-store";
-import { useOrigin } from "hooks/use-origin";
+import { useModal } from "hooks/useModal";
+import { useOrigin } from "hooks/useOrigin";
 import { Check, Copy, RefreshCw } from "lucide-react";
 import { useState } from "react";
 
+/** Modal that displays an invite link to the server. */
 export const InviteModal = () => {
   const { isOpen, onClose, type, data, onOpen } = useModal();
 
@@ -61,7 +62,7 @@ export const InviteModal = () => {
           </DialogTitle>
         </DialogHeader>
         <div className="p-6">
-          <Label className="dark:text-secondary/70 text-xs font-bold uppercase text-zinc-500">
+          <Label className="text-xs font-bold uppercase text-zinc-500 dark:text-secondary/70">
             Server invite link
           </Label>
           <div className="mt-2 flex items-center gap-x-2">

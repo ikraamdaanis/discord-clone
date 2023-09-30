@@ -1,6 +1,6 @@
 import { SidebarToggle } from "components/SidebarToggle";
 import { SocketIndicator } from "features/chat/components/SocketIndicator";
-import { ChatVideoButton } from "features/chat/components/chat-video-button";
+import { VideoChatButton } from "features/chat/components/VideoChatButton";
 import { UserAvatar } from "features/profile/components/ProfileAvatar";
 import { Hash } from "lucide-react";
 
@@ -29,7 +29,7 @@ export const ChatHeader = ({
       )}
       <p className="text-md font-semibold text-black dark:text-white">{name}</p>
       <div className="ml-auto flex items-center">
-        {type === "conversation" && <ChatVideoButton />}
+        {type === "conversation" && <VideoChatButton />}
         <SocketIndicator />
       </div>
     </div>

@@ -5,7 +5,8 @@ import { Video, VideoOff } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import qs from "query-string";
 
-export const ChatVideoButton = () => {
+/** Button to start video/audio chat in a direct conversation. */
+export const VideoChatButton = () => {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();

@@ -7,7 +7,7 @@ import { ChatBeginning } from "features/chat/components/ChatBeginning";
 import { useChatQuery } from "features/chat/hooks/useChatQuery";
 import { useChatSocket } from "features/chat/hooks/useChatSocket";
 import { Loader2, ServerCrash } from "lucide-react";
-import { ChatItem } from "./chat-item";
+import { ChatMessage } from "./ChatMessage";
 
 const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
@@ -93,7 +93,7 @@ export const ChatMessages = ({
       >
         {rows.map(message => {
           return (
-            <ChatItem
+            <ChatMessage
               key={message.id}
               id={message.id}
               currentMember={member}

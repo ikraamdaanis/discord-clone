@@ -10,7 +10,7 @@ import {
   DialogHeader,
   DialogTitle
 } from "components/ui/dialog";
-import { useModal } from "hooks/use-modal-store";
+import { useModal } from "hooks/useModal";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 

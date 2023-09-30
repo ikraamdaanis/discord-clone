@@ -5,7 +5,7 @@ import { useSocket } from "components/providers/socket-provider";
 import { Form, FormControl, FormField, FormItem } from "components/ui/form";
 import { Input } from "components/ui/input";
 import { EmojiPicker } from "features/chat/components/EmojiPicker";
-import { useModal } from "hooks/use-modal-store";
+import { useModal } from "hooks/useModal";
 import { Plus } from "lucide-react";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";

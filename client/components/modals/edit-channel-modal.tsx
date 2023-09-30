@@ -27,7 +27,7 @@ import {
   SelectTrigger,
   SelectValue
 } from "components/ui/select";
-import { useModal } from "hooks/use-modal-store";
+import { useModal } from "hooks/useModal";
 import { useRouter } from "next/navigation";
 import qs from "query-string";
 import { useForm } from "react-hook-form";
@@ -110,7 +110,7 @@ export const EditChannelModal = () => {
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className="dark:text-secondary/70 text-xs font-bold uppercase text-zinc-500">
+                      <FormLabel className="text-xs font-bold uppercase text-zinc-500 dark:text-secondary/70">
                         Channel Name
                       </FormLabel>
                       <FormControl>
@@ -133,7 +133,7 @@ export const EditChannelModal = () => {
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className="dark:text-secondary/70 text-xs font-bold uppercase text-zinc-500">
+                      <FormLabel className="text-xs font-bold uppercase text-zinc-500 dark:text-secondary/70">
                         Channel Type
                       </FormLabel>
                       <Select

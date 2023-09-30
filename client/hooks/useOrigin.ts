@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+/** Returns the current URL. */
 export const useOrigin = () => {
   const [mounted, setMounted] = useState(false);
 

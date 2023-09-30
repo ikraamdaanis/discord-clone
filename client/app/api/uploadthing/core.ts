@@ -1,5 +1,5 @@
 import { auth } from "@clerk/nextjs";
-import { createUploadthing } from "uploadthing/next";
+import { FileRouter, createUploadthing } from "uploadthing/next";
 
 const f = createUploadthing();
 
@@ -19,6 +19,6 @@ export const ourFileRouter = {
   messageFile: f(["image", "pdf"])
     .middleware(() => handleAuth())
     .onUploadComplete(() => {})
-};
+} satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;
