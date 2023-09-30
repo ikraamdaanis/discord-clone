@@ -2,16 +2,22 @@
 
 import { Channel, ChannelType, MemberRole, Server } from "@prisma/client";
 import { ActionTooltip } from "components/ActionTooltip";
+import { HashIcon } from "components/icons/HashIcon";
 import { ModalType, useModal } from "hooks/useModal";
 import { cn } from "lib/utils";
-import { Edit, Hash, Lock, Mic, Trash, Video } from "lucide-react";
+import { Edit, Lock, Mic, Trash, Video } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 
-const iconMap = {
-  [ChannelType.TEXT]: Hash,
+const iconMap = (showLock: boolean) => ({
+  [ChannelType.TEXT]: () => (
+    <HashIcon
+      showLock={showLock}
+      className="h-5 w-5 flex-shrink-0 text-zinc-500 dark:text-zinc-400"
+    />
+  ),
   [ChannelType.AUDIO]: Mic,
   [ChannelType.VIDEO]: Video
-};
+});
 
 type ServerChannelProps = {
   channel: Channel;
@@ -28,7 +34,7 @@ export const ServerChannel = ({
   const params = useParams();
   const router = useRouter();
 
-  const Icon = iconMap[channel.type];
+  const Icon = iconMap(channel.name === "general")[channel.type];
 
   const { onOpen } = useModal();
 
@@ -52,7 +58,7 @@ export const ServerChannel = ({
       <Icon className="h-5 w-5 flex-shrink-0 text-zinc-500 dark:text-zinc-400" />
       <p
         className={cn(
-          "line-clamp-1 text-sm font-semibold text-zinc-500 transition group-hover:text-zinc-600 dark:text-zinc-400 dark:group-hover:text-zinc-300",
+          "line-clamp-1 font-medium text-zinc-500 transition group-hover:text-zinc-600 dark:text-zinc-400 dark:group-hover:text-zinc-300",
           params?.channelId === channel.id &&
             "text-primary dark:text-zinc-200 dark:group-hover:text-white"
         )}

@@ -1,4 +1,5 @@
 import { UserButton } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 import { NavigationAction } from "components/navigation/navigation-action";
 import { NavigationItem } from "components/navigation/navigation-item";
 import { ScrollArea } from "components/ui/scroll-area";
@@ -47,8 +48,11 @@ export const NavigationSidebar = async () => {
         <UserButton
           afterSignOutUrl="/"
           appearance={{
+            baseTheme: dark,
             elements: {
-              avatarBox: "h-12 w-12"
+              avatarBox: "h-12 w-12",
+              profilePage: "bg-red-500",
+              modalContent: "bg-red-500"
             }
           }}
         />

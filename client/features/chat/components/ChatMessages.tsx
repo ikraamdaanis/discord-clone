@@ -1,6 +1,7 @@
 "use client";
 
 import { Member, Message, Profile } from "@prisma/client";
+import { DiscourseLogo } from "components/DiscourseLogo";
 import { InfiniteScroller } from "components/InfiniteScroller";
 import { format } from "date-fns";
 import { ChatBeginning } from "features/chat/components/ChatBeginning";
@@ -8,7 +9,6 @@ import { useChatQuery } from "features/chat/hooks/useChatQuery";
 import { useChatSocket } from "features/chat/hooks/useChatSocket";
 import { Loader2, ServerCrash } from "lucide-react";
 import { ChatMessage } from "./ChatMessage";
-import { ConvoLogo } from "components/ConvoLogo";
 
 const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
@@ -62,7 +62,7 @@ export const ChatMessages = ({
   if (status == "loading") {
     return (
       <div className="flex flex-1 flex-col items-center justify-center">
-        <ConvoLogo className="h-20 w-20 animate-pulse" />
+        <DiscourseLogo className="h-20 w-20 animate-pulse" />
       </div>
     );
   }

@@ -1,5 +1,5 @@
-/** Convo icon SVG. */
-export const ConvoLogo = (props: JSX.IntrinsicElements["svg"]) => {
+/** Discourse icon SVG. */
+export const DiscourseLogo = (props: JSX.IntrinsicElements["svg"]) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

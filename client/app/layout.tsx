@@ -1,13 +1,37 @@
 import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 import { ModalProvider } from "components/providers/modal-provider";
 import { QueryProvider } from "components/providers/query-provider";
 import { ThemeProvider } from "components/providers/theme-provider";
 import { cn } from "lib/utils";
 import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const font = Open_Sans({ subsets: ["latin"] });
+const ggSans = localFont({
+  src: [
+    {
+      path: "../assets/fonts/gg-sans-regular.woff",
+      weight: "400",
+      style: "normal"
+    },
+    {
+      path: "../assets/fonts/gg-sans-medium.woff",
+      weight: "500",
+      style: "normal"
+    },
+    {
+      path: "../assets/fonts/gg-sans-semibold.woff",
+      weight: "600",
+      style: "normal"
+    },
+    {
+      path: "../assets/fonts/gg-sans-bold.woff",
+      weight: "700",
+      style: "normal"
+    }
+  ]
+});
 
 export const metadata: Metadata = {
   title: "Discourse",
@@ -21,9 +45,14 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+        elements: {}
+      }}
+    >
       <html lang="en" suppressHydrationWarning>
-        <body className={cn(font.className, "bg-white dark:bg-[#313338]")}>
+        <body className={cn(ggSans.className, "bg-white dark:bg-[#313338]")}>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
