@@ -80,3 +80,12 @@ body,
     @apply bg-background text-foreground;
   }
 }
+
+.cl-rootBox > * {
+  letter-spacing: unset;
+}
+
+.cl-scrollBox + div {
+  display: none;
+  background: red;
+}

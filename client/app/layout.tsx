@@ -47,12 +47,24 @@ export default async function RootLayout({
   return (
     <ClerkProvider
       appearance={{
+        variables: { fontFamily: ggSans.style.fontFamily },
         baseTheme: dark,
-        elements: {}
+        elements: {
+          userButtonBox: "le",
+          userButtonPopoverActionButton: "tracking-normal",
+          userButtonPopoverFooter: "hidden",
+          card: "dark:bg-backgroundDark2",
+          navbarButton: "tracking-normal"
+        }
       }}
     >
       <html lang="en" suppressHydrationWarning>
-        <body className={cn(ggSans.className, "bg-white dark:bg-[#313338]")}>
+        <body
+          className={cn(
+            ggSans.className,
+            "dark:bg-backgroundDark bg-white tracking-normal"
+          )}
+        >
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
