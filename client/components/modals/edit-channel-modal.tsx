@@ -110,7 +110,7 @@ export const EditChannelModal = () => {
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className="text-xs font-bold uppercase text-zinc-500 dark:text-secondary/70">
+                      <FormLabel className="text-xs font-bold uppercase text-secondary/70">
                         Channel Name
                       </FormLabel>
                       <FormControl>
@@ -133,7 +133,7 @@ export const EditChannelModal = () => {
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className="text-xs font-bold uppercase text-zinc-500 dark:text-secondary/70">
+                      <FormLabel className="text-xs font-bold uppercase text-secondary/70">
                         Channel Type
                       </FormLabel>
                       <Select

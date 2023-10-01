@@ -48,7 +48,7 @@ export const FileUpload = ({ endpoint, value, onChange }: FileUploadProps) => {
           href={value}
           target="_blank"
           rel="noopener noreferrer"
-          className="ml-2 text-sm text-indigo-500 hover:underline dark:text-indigo-400"
+          className="ml-2 text-sm text-indigo-400 hover:underline"
         >
           {value}
         </a>

@@ -26,7 +26,7 @@ export const NavigationSidebar = async () => {
   });
 
   return (
-    <div className="dark:bg-backgroundDark2 flex h-full w-full flex-col items-center space-y-4 bg-[#e3e5e8] py-3 text-primary">
+    <div className="flex h-full w-full flex-col items-center space-y-4 bg-backgroundDark2 py-3 text-primary">
       <ScrollArea>
         <div className="flex w-full flex-col items-center gap-3">
           {servers.map(server => {
@@ -43,7 +43,7 @@ export const NavigationSidebar = async () => {
         </div>
       </ScrollArea>
       <NavigationAction />
-      <Separator className="mx-auto h-[2px] w-10 rounded-md bg-zinc-300 dark:bg-zinc-700" />
+      <Separator className="mx-auto h-[2px] w-10 rounded-md bg-zinc-700" />
       <div className="mt-auto flex flex-col items-center gap-y-4 pb-3">
         <UserButton
           afterSignOutUrl="/"

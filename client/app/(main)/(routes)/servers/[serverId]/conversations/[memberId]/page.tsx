@@ -54,7 +54,7 @@ const MemberPage = async ({ params, searchParams }: MemberPageProps) => {
     memberOne.profileId === profile.id ? memberTwo : memberOne;
 
   return (
-    <div className="flex h-full flex-col bg-white dark:bg-[#313338]">
+    <div className="flex h-full flex-col bg-backgroundDark">
       <ChatHeader
         imageUrl={otherMember.profile.imageUrl}
         name={otherMember.profile.name}

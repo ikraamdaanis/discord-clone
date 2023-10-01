@@ -87,5 +87,19 @@ body,
 
 .cl-scrollBox + div {
   display: none;
-  background: red;
+}
+
+.scroller::-webkit-scrollbar {
+  width: 10px;
+}
+
+.scroller::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background: #2b2d31;
+  margin-top: 4px;
+}
+
+.scroller::-webkit-scrollbar-thumb {
+  background: #1a1c1e;
+  border-radius: 8px;
 }

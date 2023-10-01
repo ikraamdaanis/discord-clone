@@ -71,9 +71,7 @@ export const ChatMessages = ({
     return (
       <div className="flex flex-1 flex-col items-center justify-center">
         <ServerCrash className="my-4 h-7 w-7 text-zinc-500" />
-        <p className="text-xs text-zinc-500 dark:text-zinc-400">
-          Something went wrong!
-        </p>
+        <p className="text-xs text-zinc-400">Something went wrong!</p>
       </div>
     );
   }
@@ -87,7 +85,7 @@ export const ChatMessages = ({
           <Loader2 className="my-4 h-6 w-6 animate-spin text-zinc-500" />
         }
         endingMessage={<ChatBeginning type={type} name={name} />}
-        className="flex flex-1 flex-col-reverse overflow-auto"
+        className="scroller mr-1 flex flex-1 flex-col-reverse overflow-auto"
       >
         {rows.map(message => {
           return (
