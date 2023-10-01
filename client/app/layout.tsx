@@ -47,7 +47,10 @@ export default async function RootLayout({
   return (
     <ClerkProvider
       appearance={{
-        variables: { fontFamily: ggSans.style.fontFamily },
+        variables: {
+          fontFamily: ggSans.style.fontFamily,
+          colorPrimary: "#F6565F"
+        },
         baseTheme: dark,
         elements: {
           userButtonBox: "le",

@@ -82,7 +82,7 @@ body,
 }
 
 .cl-rootBox > * {
-  letter-spacing: unset;
+  letter-spacing: unset !important;
 }
 
 .cl-scrollBox + div {
