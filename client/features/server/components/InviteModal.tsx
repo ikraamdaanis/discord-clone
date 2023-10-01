@@ -2,12 +2,7 @@
 
 import axios from "axios";
 import { Button } from "components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle
-} from "components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "components/ui/dialog";
 import { Input } from "components/ui/input";
 import { Label } from "components/ui/label";
 import { useModal } from "hooks/useModal";
@@ -55,24 +50,30 @@ export const InviteModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
-      <DialogContent className="overflow-hidden bg-white p-0 text-black">
-        <DialogHeader className="px-6 pt-8">
-          <DialogTitle className="text-center text-2xl font-bold">
-            Invite Friends
-          </DialogTitle>
-        </DialogHeader>
-        <div className="p-6">
-          <Label className="text-xs font-bold uppercase text-zinc-500 dark:text-secondary/70">
+      <DialogContent
+        className="bg-backgroundDark flex flex-col gap-0 overflow-hidden rounded-sm p-0 text-black md:rounded-sm"
+        closeClassName="text-zinc-400 h-6 w-6"
+      >
+        <DialogTitle className="text-md p-4 text-left font-medium text-zinc-100">
+          Invite Friends to {data.server?.name}
+        </DialogTitle>
+        <div className="p-4">
+          <Label className="text-xs font-bold uppercase text-zinc-300">
             Server invite link
           </Label>
           <div className="mt-2 flex items-center gap-x-2">
             <Input
-              className="border-0 bg-zinc-300/50 text-black focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="bg-backgroundDark2 border-0 text-zinc-300 focus-visible:ring-0 focus-visible:ring-offset-0"
               value={inviteUrl}
               disabled={isLoading}
               readOnly
             />
-            <Button size="icon" onClick={onCopy} disabled={isLoading}>
+            <Button
+              size="icon"
+              onClick={onCopy}
+              disabled={isLoading}
+              className="bg-brandColour hover:bg-brandColour/80 text-zinc-100"
+            >
               {copied ? (
                 <Check className="h-4 w-4" />
               ) : (
@@ -83,7 +84,7 @@ export const InviteModal = () => {
           <Button
             variant="link"
             size="sm"
-            className="mt-4 text-xs text-zinc-500"
+            className="mt-4 px-0 text-xs text-zinc-200"
             disabled={isLoading}
             onClick={onNew}
           >
