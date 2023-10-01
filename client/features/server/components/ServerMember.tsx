@@ -2,6 +2,7 @@
 
 import { Member, MemberRole, Profile } from "@prisma/client";
 import { UserAvatar } from "features/profile/components/ProfileAvatar";
+import { useUsers } from "hooks/useUsers";
 import { cn } from "lib/utils";
 import { ShieldAlert, ShieldCheck } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
@@ -29,18 +30,31 @@ export const ServerMember = ({ member }: ServerMemberProps) => {
     router.push(`/servers/${params?.serverId}/conversations/${member.id}`);
   };
 
+  const users = useUsers(state => state.users);
+
+  const isOnline = users.find(userId => userId === member.profileId);
+
   return (
     <button
       onClick={onClick}
       className={cn(
         "group mb-1 flex w-full items-center gap-x-2 rounded-md px-2 py-2 transition hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50",
-        params?.memberId === member.id && "bg-zinc-700/20 dark:bg-zinc-700"
+        params?.memberId === member.id && "bg-zinc-700/20 dark:bg-zinc-700",
+        !isOnline && "opacity-30"
       )}
     >
-      <UserAvatar
-        src={member.profile.imageUrl}
-        className="h-8 w-8 md:h-8 md:w-8"
-      />
+      <div className="relative">
+        <UserAvatar
+          src={member.profile.imageUrl}
+          className="h-8 w-8 md:h-8 md:w-8"
+        />
+        <div
+          className={cn(
+            "absolute -bottom-1 -right-1 h-[16px] w-[16px] rounded-full border-[3px] border-backgroundDark2 bg-green-500",
+            !isOnline && "hidden"
+          )}
+        />
+      </div>
       <p
         className={cn(
           "text-sm font-semibold text-zinc-500 transition group-hover:text-zinc-600 dark:text-zinc-400 dark:group-hover:text-zinc-300",
@@ -50,6 +64,7 @@ export const ServerMember = ({ member }: ServerMemberProps) => {
       >
         {member.profile.name}
       </p>
+
       {icon}
     </button>
   );

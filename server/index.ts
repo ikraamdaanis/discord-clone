@@ -35,7 +35,17 @@ const server = Bun.serve<Args>({
       ) {
         users.push(ws.data.profileId);
       }
-    }, // a socket is opened
+
+      const payload = {
+        users,
+        key: "users",
+        from: "open"
+      };
+
+      ws.subscribe("users");
+
+      server.publish("users", JSON.stringify(payload));
+    },
     async message(ws: ServerWebSocket<Args>, message) {
       const data = JSON.parse(
         message as string
@@ -61,22 +71,26 @@ const server = Bun.serve<Args>({
               key: data.key,
               data: message
             };
-            ws.send(JSON.stringify(payload));
+
+            server.publish(data.key, JSON.stringify(payload));
           }
         }
       }
-      ws.publish(
-        data.key,
-        JSON.stringify({ type: "MESSAGES_ADD", data: message })
-      );
-    }, // a message is received
+    },
     close(ws, code, message) {
       users = users.filter(user => user !== ws.data.profileId);
-    }, // a socket is closed
-    drain(ws) {} // the socket is ready to receive more data
+
+      const payload = {
+        users,
+        key: "users",
+        from: "close"
+      };
+
+      ws.unsubscribe("users");
+
+      server.publish("users", JSON.stringify(payload));
+    }
   }
 });
-
-const socket = new WebSocket(`ws://localhost:${process.env.PORT || 5000}/`);
 
 console.log(`Listening on http://localhost:${server.port}...`);

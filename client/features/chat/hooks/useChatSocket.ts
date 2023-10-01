@@ -1,6 +1,7 @@
 import { Member, Message, Profile } from "@prisma/client";
 import { useQueryClient } from "@tanstack/react-query";
 import { useSocket } from "components/providers/socket-provider";
+import { useUsers } from "hooks/useUsers";
 import { useEffect } from "react";
 
 type MessageWithMemberWithProfile = Message & {
@@ -17,6 +18,7 @@ type QueryData = {
 type SocketAddMessage = {
   key: string;
   data: MessageWithMemberWithProfile;
+  users: string[];
 };
 
 type ChatSocketProps = {
@@ -37,8 +39,14 @@ export const useChatSocket = ({
   const { socket } = useSocket();
   const queryClient = useQueryClient();
 
+  const setUsers = useUsers(state => state.setUsers);
+
   useEffect(() => {
     if (!socket) return;
+
+    socket.addEventListener("open", () => {
+      socket.send(JSON.stringify({ key: addKey }));
+    });
 
     socket.addEventListener("message", e => {
       // Data sent will be a string so parse into an object
@@ -77,6 +85,10 @@ export const useChatSocket = ({
               };
             }
           );
+
+          break;
+        case "users":
+          setUsers(event.users);
           break;
       }
     });
@@ -109,5 +121,9 @@ export const useChatSocket = ({
     //     }
     //   );
     // });
-  }, [addKey, queryClient, queryKey, socket, updateKey]);
+
+    return () => {
+      socket.close();
+    };
+  }, [addKey, queryClient, queryKey, setUsers, socket, updateKey]);
 };
