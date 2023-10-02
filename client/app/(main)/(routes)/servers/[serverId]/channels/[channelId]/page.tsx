@@ -58,12 +58,13 @@ const ChannelPage = async ({ params }: ChannelPageProps) => {
   }
 
   return (
-    <div className="flex h-full flex-col bg-backgroundDark">
+    <div className="relative flex h-full flex-col bg-backgroundDark">
       <ChatHeader
         name={channel.name}
         serverId={channel.serverId}
         type="channel"
       />
+      <div className="h-[76px]" />
       {channel.type === ChannelType.TEXT && (
         <>
           <ChatMessages
