@@ -95,12 +95,13 @@ export const ChatInput = ({
                   </button>
                   <Input
                     disabled={isLoading}
-                    className="border-0 border-none bg-zinc-700/75 px-14 py-6 text-zinc-200 focus-visible:ring-0 focus-visible:ring-offset-0"
+                    className="border-0 border-none bg-zinc-700/75 px-14 py-6 text-base text-zinc-200 focus-visible:ring-0 focus-visible:ring-offset-0"
                     placeholder={`Message ${
                       type === "conversation" ? name : "#" + name
                     }`}
                     {...field}
                     ref={inputRef}
+                    maxLength={255}
                     autoFocus
                   />
                   <div className="absolute right-8 top-7">

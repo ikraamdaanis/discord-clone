@@ -1,3 +1,5 @@
+import { Member, Message, Profile } from "@prisma/client";
+
 export type UpdateMessagePayload = {
   key: string;
   serverId: string;
@@ -6,4 +8,18 @@ export type UpdateMessagePayload = {
   messageId: string;
   directMessageId: string;
   deleted?: boolean;
+};
+
+export type MessageWithMemberWithProfile = Message & {
+  member: Member & {
+    profile: Profile;
+  };
+};
+
+export type MessagesQuery = {
+  pageParams: string[];
+  pages: {
+    items: MessageWithMemberWithProfile[];
+    nextCursor: string;
+  }[];
 };

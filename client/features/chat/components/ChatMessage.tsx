@@ -190,7 +190,7 @@ export const ChatMessage = ({
             {!fileUrl && !isEditing && (
               <p
                 className={cn(
-                  "text-sm text-zinc-300",
+                  "text text-zinc-300",
                   deleted && "mt-1 text-xs italic text-zinc-400"
                 )}
               >
@@ -217,7 +217,7 @@ export const ChatMessage = ({
                           <div className="relative w-full">
                             <Input
                               disabled={isLoading}
-                              className="border-0 border-none bg-zinc-700/75 p-2 text-zinc-200 focus-visible:ring-0 focus-visible:ring-offset-0"
+                              className="border-0 border-none bg-zinc-700/75 p-2 text-base text-zinc-200 focus-visible:ring-0 focus-visible:ring-offset-0"
                               placeholder="Edited message"
                               {...field}
                             />
@@ -249,14 +249,7 @@ export const ChatMessage = ({
             )}
             <ActionTooltip label="Delete">
               <Trash
-                onClick={
-                  () => setIsOpen(true)
-                  // onOpen("deleteMessage", {
-                  //   messageId: id,
-                  //   serverId,
-                  //   channelId
-                  // })
-                }
+                onClick={() => setIsOpen(true)}
                 className="ml-auto h-4 w-4 cursor-pointer text-zinc-500 transition hover:text-zinc-300"
               />
             </ActionTooltip>
