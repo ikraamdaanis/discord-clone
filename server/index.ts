@@ -1,6 +1,7 @@
 import { ServerWebSocket } from "bun";
 import { currentProfile } from "./currentProfile";
 import { AddMessagePayload, createMessage } from "./createMessage";
+import { updateMessage } from "./updateMessage";
 
 type Args = {
   profileId: string;
@@ -60,11 +61,25 @@ const server = Bun.serve<Args>({
 
         if (!profile) return;
 
-        if (data.content) {
-          const message = await createMessage({
-            ...data,
-            profile
-          });
+        if (data.messageId || data.content) {
+          let message;
+
+          const addKey = `chat:${data.channelId}:messages`;
+          const updateKey = `chat:${data.channelId}:messages:update`;
+
+          switch (data.key) {
+            case addKey:
+              message = await createMessage({
+                ...data,
+                profile
+              });
+              break;
+            case updateKey:
+              message = await updateMessage({
+                ...data,
+                profile
+              });
+          }
 
           if (message) {
             const payload = {

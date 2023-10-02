@@ -1,6 +1,6 @@
 "use client";
 
-import axios from "axios";
+import { useSocket } from "components/providers/socket-provider";
 import { Button } from "components/ui/button";
 import {
   Dialog,
@@ -10,33 +10,46 @@ import {
   DialogHeader,
   DialogTitle
 } from "components/ui/dialog";
-import { useModal } from "hooks/useModal";
+import { UpdateMessagePayload } from "features/chat/types";
 import { useRouter } from "next/navigation";
-import qs from "query-string";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
-export const DeleteMessageModal = () => {
+type DeleteMessageModalProps = {
+  channelId: string;
+  serverId: string;
+  messageId: string;
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+};
+
+export const DeleteMessageModal = ({
+  channelId,
+  serverId,
+  messageId,
+  isOpen,
+  setIsOpen
+}: DeleteMessageModalProps) => {
   const router = useRouter();
 
-  const { isOpen, onClose, type, data } = useModal();
-  const { apiUrl, query } = data;
+  const { socket } = useSocket();
 
   const [isLoading, setIsLoading] = useState(false);
-
-  const isModalOpen = isOpen && type === "deleteMessage";
 
   async function handleClick() {
     try {
       setIsLoading(true);
 
-      const url = qs.stringifyUrl({
-        url: apiUrl || "",
-        query
-      });
+      const payload: UpdateMessagePayload = {
+        key: `chat:${channelId}:messages:update`,
+        serverId: serverId || "",
+        channelId: channelId || "",
+        messageId: messageId || "",
+        deleted: true
+      };
 
-      await axios.delete(url);
+      socket?.send(JSON.stringify(payload));
 
-      onClose();
+      setIsOpen(false);
       router.refresh();
     } catch (error) {
       console.error(error);
@@ -46,7 +59,7 @@ export const DeleteMessageModal = () => {
   }
 
   return (
-    <Dialog open={isModalOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="overflow-hidden bg-white p-0 text-black">
         <DialogHeader className="px-6 pt-8 text-left">
           <DialogTitle className="text-2xl font-bold">
@@ -62,7 +75,7 @@ export const DeleteMessageModal = () => {
               disabled={isLoading}
               variant="link"
               className="text-zinc-800"
-              onClick={() => onClose()}
+              onClick={() => setIsOpen(false)}
             >
               Cancel
             </Button>

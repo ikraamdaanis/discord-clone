@@ -81,10 +81,6 @@ body,
   }
 }
 
-.cl-rootBox > * {
-  letter-spacing: unset !important;
-}
-
 .cl-scrollBox + div {
   display: none;
 }

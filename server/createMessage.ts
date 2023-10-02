@@ -6,6 +6,8 @@ export type AddMessagePayload = {
   serverId: string;
   channelId: string;
   content: string;
+  messageId: string;
+  deleted: boolean;
 };
 
 export async function createMessage(
@@ -30,13 +32,6 @@ export async function createMessage(
       }
     });
 
-    const channel = await db.channel.findFirst({
-      where: {
-        id: channelId as string,
-        serverId: serverId as string
-      }
-    });
-
     const member = server?.members.find(
       member => member.profileId === profile.id
     );
@@ -58,7 +53,7 @@ export async function createMessage(
 
     return message;
   } catch (error) {
-    console.error("MESSAGES_POST: ", error);
+    console.error("Message Creation: ", error);
     return null;
   }
 }

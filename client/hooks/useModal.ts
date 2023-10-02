@@ -20,6 +20,9 @@ type ModalData = {
   channelType?: ChannelType;
   apiUrl?: string;
   query?: Record<string, string>;
+  serverId?: string;
+  channelId?: string;
+  messageId?: string;
 };
 
 type ModalStore = {

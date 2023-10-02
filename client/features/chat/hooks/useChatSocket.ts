@@ -46,6 +46,7 @@ export const useChatSocket = ({
 
     socket.addEventListener("open", () => {
       socket.send(JSON.stringify({ key: addKey }));
+      socket.send(JSON.stringify({ key: updateKey }));
     });
 
     socket.addEventListener("message", e => {
@@ -87,40 +88,41 @@ export const useChatSocket = ({
           );
 
           break;
+        case updateKey:
+          queryClient.setQueriesData(
+            [queryKey],
+            (oldData: QueryData | undefined) => {
+              if (!oldData || !oldData?.pages?.length) {
+                return oldData;
+              }
+
+              const newData = oldData.pages.map(page => {
+                return {
+                  ...page,
+                  items: page.items.map(
+                    (item: MessageWithMemberWithProfile) => {
+                      if (item.id === event.data.id) {
+                        return event.data;
+                      }
+
+                      return item;
+                    }
+                  )
+                };
+              });
+
+              return {
+                ...oldData,
+                pages: newData
+              };
+            }
+          );
+          break;
         case "users":
           setUsers(event.users);
           break;
       }
     });
-
-    // socket.on(updateKey, (message: MessageWithMemberWithProfile) => {
-    //   queryClient.setQueriesData(
-    //     [queryKey],
-    //     (oldData: QueryData | undefined) => {
-    //       if (!oldData || !oldData?.pages?.length) {
-    //         return oldData;
-    //       }
-
-    //       const newData = oldData.pages.map(page => {
-    //         return {
-    //           ...page,
-    //           items: page.items.map((item: MessageWithMemberWithProfile) => {
-    //             if (item.id === message.id) {
-    //               return message;
-    //             }
-
-    //             return item;
-    //           })
-    //         };
-    //       });
-
-    //       return {
-    //         ...oldData,
-    //         pages: newData
-    //       };
-    //     }
-    //   );
-    // });
 
     return () => {
       socket.close();

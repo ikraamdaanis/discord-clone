@@ -23,8 +23,6 @@ interface ChatMessagesProps {
   member: Member;
   channelId: string;
   apiUrl: string;
-  socketUrl: string;
-  socketQuery: Record<string, string>;
   paramKey: "channelId" | "conversationId";
   paramValue: string;
   type: "channel" | "conversation";
@@ -36,8 +34,6 @@ export const ChatMessages = ({
   member,
   channelId,
   apiUrl,
-  socketUrl,
-  socketQuery,
   paramKey,
   paramValue,
   type
@@ -92,6 +88,8 @@ export const ChatMessages = ({
             <ChatMessage
               key={message.id}
               id={message.id}
+              channelId={channelId}
+              serverId={member.serverId}
               currentMember={member}
               member={message.member}
               content={message.content}
@@ -99,8 +97,6 @@ export const ChatMessages = ({
               deleted={message.deleted}
               timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
               isUpdated={message.updatedAt !== message.createdAt}
-              socketUrl={socketUrl}
-              socketQuery={socketQuery}
             />
           );
         })}
