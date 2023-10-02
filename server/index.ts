@@ -8,6 +8,14 @@ import {
   updateChannelMessage
 } from "./controllers/channel-messages/updateChannelMessage";
 import { currentProfile } from "./utils/currentProfile";
+import {
+  AddDirectMessagePayload,
+  createDirectMessage
+} from "./controllers/direct-messages/createDirectMessage";
+import {
+  UpdateDirectMessagePayload,
+  updateDirectMessage
+} from "./controllers/direct-messages/updateDirectMessage";
 
 type Args = {
   profileId: string;
@@ -71,6 +79,9 @@ const server = Bun.serve<Args>({
           const createChannelMessageKey = `chat:${data.channelId}:messages`;
           const updateChannelMessageKey = `chat:${data.channelId}:messages:update`;
 
+          const createDirectMessageKey = `direct:${data.channelId}:messages`;
+          const updateDirectMessageKey = `direct:${data.channelId}:messages:update`;
+
           switch (data.key) {
             case createChannelMessageKey:
               message = await createChannelMessage({
@@ -83,6 +94,19 @@ const server = Bun.serve<Args>({
                 ...(data as UpdateChannelMessagePayload),
                 profile
               });
+              break;
+            case createDirectMessageKey:
+              message = await createDirectMessage({
+                ...(data as AddDirectMessagePayload),
+                profile
+              });
+              break;
+            case updateDirectMessageKey:
+              message = await updateDirectMessage({
+                ...(data as UpdateDirectMessagePayload),
+                profile
+              });
+              break;
           }
 
           if (message) {

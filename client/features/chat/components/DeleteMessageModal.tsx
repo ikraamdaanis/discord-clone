@@ -20,6 +20,7 @@ type DeleteMessageModalProps = {
   messageId: string;
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  socketKey: string;
 };
 
 export const DeleteMessageModal = ({
@@ -27,7 +28,8 @@ export const DeleteMessageModal = ({
   serverId,
   messageId,
   isOpen,
-  setIsOpen
+  setIsOpen,
+  socketKey
 }: DeleteMessageModalProps) => {
   const router = useRouter();
 
@@ -40,10 +42,11 @@ export const DeleteMessageModal = ({
       setIsLoading(true);
 
       const payload: UpdateMessagePayload = {
-        key: `chat:${channelId}:messages:update`,
+        key: `${socketKey}:messages:update`,
         serverId: serverId || "",
         channelId: channelId || "",
         messageId: messageId || "",
+        directMessageId: messageId || "",
         deleted: true
       };
 

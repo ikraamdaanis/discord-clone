@@ -7,6 +7,7 @@ import { useSocket } from "components/providers/socket-provider";
 import { Button } from "components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "components/ui/form";
 import { Input } from "components/ui/input";
+import { MessageType } from "features/chat/components/ChatMessages";
 import { DeleteMessageModal } from "features/chat/components/DeleteMessageModal";
 import { UpdateMessagePayload } from "features/chat/types";
 import { UserAvatar } from "features/profile/components/ProfileAvatar";
@@ -17,6 +18,16 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+
+const roleIconMap = {
+  GUEST: null,
+  MODERATOR: <ShieldCheck className="ml-2 h-4 w-4 text-indigo-500" />,
+  ADMIN: <ShieldAlert className="ml-2 h-4 w-4 text-rose-500" />
+};
+
+const formSchema = z.object({
+  content: z.string().min(1)
+});
 
 type ChatItemProps = {
   id: string;
@@ -31,17 +42,9 @@ type ChatItemProps = {
   deleted: boolean;
   currentMember: Member;
   isUpdated: boolean;
+  type: MessageType;
+  socketKey: string;
 };
-
-const roleIconMap = {
-  GUEST: null,
-  MODERATOR: <ShieldCheck className="ml-2 h-4 w-4 text-indigo-500" />,
-  ADMIN: <ShieldAlert className="ml-2 h-4 w-4 text-rose-500" />
-};
-
-const formSchema = z.object({
-  content: z.string().min(1)
-});
 
 /** Displays a single message in a server or direct message. */
 export const ChatMessage = ({
@@ -54,7 +57,8 @@ export const ChatMessage = ({
   fileUrl,
   deleted,
   currentMember,
-  isUpdated
+  isUpdated,
+  socketKey
 }: ChatItemProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -92,11 +96,12 @@ export const ChatMessage = ({
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const payload: UpdateMessagePayload = {
-        key: `chat:${channelId}:messages:update`,
+        key: `${socketKey}:messages:update`,
         serverId: serverId,
         channelId: channelId,
         content: values.content,
-        messageId: id
+        messageId: id,
+        directMessageId: id
       };
 
       socket?.send(JSON.stringify(payload));
@@ -118,8 +123,11 @@ export const ChatMessage = ({
 
   const isAdmin = currentMember.role === MemberRole.ADMIN;
   const isModerator = currentMember.role === MemberRole.MODERATOR;
+  const isDirectMessage = socketKey.includes("direct");
   const isOwner = currentMember.id === member.id;
-  const canDeleteMessage = !deleted && (isAdmin || isModerator || isOwner);
+  const canDeleteMessage = isDirectMessage
+    ? isOwner
+    : !deleted && (isAdmin || isModerator || isOwner);
   const canEditMessage = !deleted && isOwner && !fileUrl;
   const isPDF = fileType === "pdf" && fileUrl;
   const isImage = !isPDF && fileUrl;
@@ -261,6 +269,7 @@ export const ChatMessage = ({
         channelId={channelId}
         serverId={serverId}
         messageId={id}
+        socketKey={socketKey}
       />
     </>
   );

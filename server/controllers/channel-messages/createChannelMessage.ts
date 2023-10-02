@@ -6,6 +6,7 @@ export type AddChannelMessagePayload = {
   serverId: string;
   channelId: string;
   content: string;
+  fileUrl: string;
   messageId: string;
 };
 
@@ -16,7 +17,7 @@ export async function createChannelMessage(
   }
 ) {
   try {
-    const { serverId, channelId, content, profile } = args;
+    const { serverId, channelId, content, profile, fileUrl } = args;
 
     const server = await db.server.findFirst({
       where: {
@@ -39,6 +40,7 @@ export async function createChannelMessage(
     const message = await db.message.create({
       data: {
         content,
+        fileUrl,
         channelId: channelId as string,
         memberId: member?.id as string
       },

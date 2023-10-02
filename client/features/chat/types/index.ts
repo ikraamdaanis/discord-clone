@@ -4,5 +4,6 @@ export type UpdateMessagePayload = {
   channelId: string;
   content?: string;
   messageId: string;
+  directMessageId: string;
   deleted?: boolean;
 };

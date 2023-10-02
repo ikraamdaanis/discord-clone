@@ -16,21 +16,29 @@ type AddMessagePayload = {
   serverId: string;
   channelId: string;
   content: string;
-};
-
-type ChatInputProps = {
-  apiUrl: string;
-  query: Record<string, string>;
-  name: string;
-  type: "conversation" | "channel";
+  conversationId: string;
 };
 
 const formSchema = z.object({
   content: z.string().min(1)
 });
 
+type ChatInputProps = {
+  apiUrl: string;
+  query: Record<string, string>;
+  name: string;
+  type: "conversation" | "channel";
+  socketKey: string;
+};
+
 /** Input for sending messages in a channel or direct message. */
-export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
+export const ChatInput = ({
+  apiUrl,
+  query,
+  name,
+  type,
+  socketKey
+}: ChatInputProps) => {
   const { onOpen } = useModal();
   const { socket } = useSocket();
 
@@ -47,10 +55,12 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
+      const chatId = query.channelId || query.conversationId;
       const payload: AddMessagePayload = {
-        key: `chat:${query.channelId}:messages`,
+        key: `${socketKey}:messages`,
         serverId: query.serverId,
-        channelId: query.channelId,
+        channelId: chatId,
+        conversationId: chatId,
         content: values.content
       };
 

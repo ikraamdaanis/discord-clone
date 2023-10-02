@@ -18,6 +18,8 @@ type MessageWithMemberWithProfile = Message & {
   };
 };
 
+export type MessageType = "channel" | "conversation";
+
 interface ChatMessagesProps {
   name: string;
   member: Member;
@@ -25,7 +27,8 @@ interface ChatMessagesProps {
   apiUrl: string;
   paramKey: "channelId" | "conversationId";
   paramValue: string;
-  type: "channel" | "conversation";
+  type: MessageType;
+  socketKey: string;
 }
 
 /** Displays the messages in a channel or direct messages. */
@@ -36,11 +39,12 @@ export const ChatMessages = ({
   apiUrl,
   paramKey,
   paramValue,
-  type
+  type,
+  socketKey
 }: ChatMessagesProps) => {
-  const queryKey = `chat:${channelId}`;
-  const addKey = `chat:${channelId}:messages`;
-  const updateKey = `chat:${channelId}:messages:update`;
+  const queryKey = socketKey;
+  const addKey = `${socketKey}:messages`;
+  const updateKey = `${socketKey}:messages:update`;
 
   const { data, fetchNextPage, hasNextPage, status } = useChatQuery({
     queryKey,
@@ -97,6 +101,8 @@ export const ChatMessages = ({
               deleted={message.deleted}
               timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
               isUpdated={message.updatedAt !== message.createdAt}
+              type={type}
+              socketKey={socketKey}
             />
           );
         })}
