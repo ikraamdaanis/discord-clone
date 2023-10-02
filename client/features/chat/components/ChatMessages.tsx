@@ -1,24 +1,15 @@
 "use client";
 
-import { Member, Message, Profile } from "@prisma/client";
+import { Member } from "@prisma/client";
 import { DiscourseLogo } from "components/DiscourseLogo";
 import { InfiniteScroller } from "components/InfiniteScroller";
+import dayjs from "dayjs";
 import { ChatBeginning } from "features/chat/components/ChatBeginning";
 import { useChatQuery } from "features/chat/hooks/useChatQuery";
 import { useChatSocket } from "features/chat/hooks/useChatSocket";
+import { MessageType, MessageWithMemberWithProfile } from "features/chat/types";
 import { Loader2, ServerCrash } from "lucide-react";
 import { ChatMessage } from "./ChatMessage";
-import dayjs from "dayjs";
-
-const DATE_FORMAT = "d MMM yyyy, HH:mm";
-
-export type MessageWithMemberWithProfile = Message & {
-  member: Member & {
-    profile: Profile;
-  };
-};
-
-export type MessageType = "channel" | "conversation";
 
 interface ChatMessagesProps {
   name: string;

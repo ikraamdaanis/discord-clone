@@ -23,3 +23,5 @@ export type MessagesQuery = {
     nextCursor: string;
   }[];
 };
+
+export type MessageType = "channel" | "conversation";

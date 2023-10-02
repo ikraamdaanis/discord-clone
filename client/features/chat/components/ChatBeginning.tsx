@@ -1,8 +1,9 @@
+import { MessageType } from "features/chat/types";
 import { Hash } from "lucide-react";
 
 type ChatWelcomeProps = {
   name: string;
-  type: "channel" | "conversation";
+  type: MessageType;
 };
 
 export const ChatBeginning = ({ name, type }: ChatWelcomeProps) => {
@@ -17,7 +18,7 @@ export const ChatBeginning = ({ name, type }: ChatWelcomeProps) => {
         {type === "channel" ? "Welcome to #" : ""}
         {name}
       </p>
-      <p className="text-sm text-zinc-600">
+      <p className="text-sm text-zinc-200">
         {type === "channel"
           ? `This is the start of the #${name} channel.`
           : `This is the start of your conversation with ${name}`}

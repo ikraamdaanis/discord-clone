@@ -2,12 +2,13 @@ import { SidebarToggle } from "components/SidebarToggle";
 import { HashIcon } from "components/icons/HashIcon";
 import { SocketIndicator } from "features/chat/components/SocketIndicator";
 import { VideoChatButton } from "features/chat/components/VideoChatButton";
+import { MessageType } from "features/chat/types";
 import { UserAvatar } from "features/profile/components/ProfileAvatar";
 
 type ChatHeaderProps = {
   serverId: string;
   name: string;
-  type: "channel" | "conversation";
+  type: MessageType;
   imageUrl?: string;
 };
 

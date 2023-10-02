@@ -7,9 +7,8 @@ import { useSocket } from "components/providers/socket-provider";
 import { Button } from "components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "components/ui/form";
 import { Input } from "components/ui/input";
-import { MessageType } from "features/chat/components/ChatMessages";
 import { DeleteMessageModal } from "features/chat/components/DeleteMessageModal";
-import { UpdateMessagePayload } from "features/chat/types";
+import { MessageType, UpdateMessagePayload } from "features/chat/types";
 import { UserAvatar } from "features/profile/components/ProfileAvatar";
 import { cn } from "lib/utils";
 import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
@@ -58,6 +57,7 @@ export const ChatMessage = ({
   deleted,
   currentMember,
   isUpdated,
+  type,
   socketKey
 }: ChatItemProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -123,14 +123,18 @@ export const ChatMessage = ({
 
   const isAdmin = currentMember.role === MemberRole.ADMIN;
   const isModerator = currentMember.role === MemberRole.MODERATOR;
-  const isDirectMessage = socketKey.includes("direct");
+
+  const isDirectMessage = type === "conversation";
+
   const isOwner = currentMember.id === member.id;
+
+  const isPDF = fileType === "pdf" && fileUrl;
+  const isImage = !isPDF && fileUrl;
+
   const canDeleteMessage = isDirectMessage
     ? isOwner
     : !deleted && (isAdmin || isModerator || isOwner);
   const canEditMessage = !deleted && isOwner && !fileUrl;
-  const isPDF = fileType === "pdf" && fileUrl;
-  const isImage = !isPDF && fileUrl;
 
   return (
     <>
