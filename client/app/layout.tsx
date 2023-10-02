@@ -56,17 +56,14 @@ export default async function RootLayout({
           userButtonBox: "le",
           userButtonPopoverActionButton: "tracking-normal",
           userButtonPopoverFooter: "hidden",
-          card: "dark:bg-backgroundDark2",
+          card: "bg-backgroundDark2",
           navbarButton: "tracking-normal"
         }
       }}
     >
       <html lang="en" suppressHydrationWarning>
         <body
-          className={cn(
-            ggSans.className,
-            "dark:bg-backgroundDark bg-white tracking-normal"
-          )}
+          className={cn(ggSans.className, "bg-backgroundDark tracking-normal")}
         >
           <ThemeProvider
             attribute="class"

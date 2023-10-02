@@ -3,12 +3,12 @@
 import { Member, Message, Profile } from "@prisma/client";
 import { DiscourseLogo } from "components/DiscourseLogo";
 import { InfiniteScroller } from "components/InfiniteScroller";
-import { format } from "date-fns";
 import { ChatBeginning } from "features/chat/components/ChatBeginning";
 import { useChatQuery } from "features/chat/hooks/useChatQuery";
 import { useChatSocket } from "features/chat/hooks/useChatSocket";
 import { Loader2, ServerCrash } from "lucide-react";
 import { ChatMessage } from "./ChatMessage";
+import dayjs from "dayjs";
 
 const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
@@ -99,7 +99,9 @@ export const ChatMessages = ({
               content={message.content}
               fileUrl={message.fileUrl}
               deleted={message.deleted}
-              timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
+              timestamp={dayjs(new Date(message.createdAt)).format(
+                "YYYY/MM/DD HH:mm"
+              )}
               isUpdated={message.updatedAt !== message.createdAt}
               type={type}
               socketKey={socketKey}
