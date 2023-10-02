@@ -1,7 +1,7 @@
 import { MemberRole, Profile } from "@prisma/client";
-import { db } from "./db";
+import { db } from "../../utils/db";
 
-export type AddMessagePayload = {
+export type UpdateChannelMessagePayload = {
   key: string;
   serverId: string;
   channelId: string;
@@ -10,14 +10,14 @@ export type AddMessagePayload = {
   messageId: string;
 };
 
-export async function updateMessage(
-  args: AddMessagePayload & {
+/** Updates a message in a server channel. */
+export async function updateChannelMessage(
+  args: UpdateChannelMessagePayload & {
     profile: Profile;
   }
 ) {
   try {
-    const { serverId, channelId, content, key, profile, messageId, deleted } =
-      args;
+    const { serverId, channelId, content, profile, messageId, deleted } = args;
 
     const server = await db.server.findFirst({
       where: {
@@ -32,18 +32,6 @@ export async function updateMessage(
         members: true
       }
     });
-
-    const channel = await db.channel.findFirst({
-      where: {
-        id: channelId as string,
-        serverId: serverId as string
-      }
-    });
-
-    if (!channel) {
-      console.error("Channel doesn't exist.");
-      return null;
-    }
 
     const member = server?.members.find(
       member => member.profileId === profile.id
@@ -111,7 +99,7 @@ export async function updateMessage(
 
     return message;
   } catch (error) {
-    console.error("Message update: ", error);
+    console.error("Error updating a channel message: ", error);
     return null;
   }
 }

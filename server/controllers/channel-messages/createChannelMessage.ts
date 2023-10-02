@@ -1,22 +1,22 @@
 import { Profile } from "@prisma/client";
-import { db } from "./db";
+import { db } from "../../utils/db";
 
-export type AddMessagePayload = {
+export type AddChannelMessagePayload = {
   key: string;
   serverId: string;
   channelId: string;
   content: string;
   messageId: string;
-  deleted: boolean;
 };
 
-export async function createMessage(
-  args: AddMessagePayload & {
+/** Creates a message in a server channel. */
+export async function createChannelMessage(
+  args: AddChannelMessagePayload & {
     profile: Profile;
   }
 ) {
   try {
-    const { serverId, channelId, content, key, profile } = args;
+    const { serverId, channelId, content, profile } = args;
 
     const server = await db.server.findFirst({
       where: {
@@ -53,7 +53,7 @@ export async function createMessage(
 
     return message;
   } catch (error) {
-    console.error("Message Creation: ", error);
+    console.error("Error creating a channel message: ", error);
     return null;
   }
 }

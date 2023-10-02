@@ -1,7 +1,13 @@
 import { ServerWebSocket } from "bun";
-import { currentProfile } from "./currentProfile";
-import { AddMessagePayload, createMessage } from "./createMessage";
-import { updateMessage } from "./updateMessage";
+import {
+  AddChannelMessagePayload,
+  createChannelMessage
+} from "./controllers/channel-messages/createChannelMessage";
+import {
+  UpdateChannelMessagePayload,
+  updateChannelMessage
+} from "./controllers/channel-messages/updateChannelMessage";
+import { currentProfile } from "./utils/currentProfile";
 
 type Args = {
   profileId: string;
@@ -48,9 +54,7 @@ const server = Bun.serve<Args>({
       server.publish("users", JSON.stringify(payload));
     },
     async message(ws: ServerWebSocket<Args>, message) {
-      const data = JSON.parse(
-        message as string
-      ) as unknown as AddMessagePayload;
+      const data = JSON.parse(message as string) as Record<string, any>;
 
       if (data.key) {
         ws.subscribe(data.key);
@@ -64,19 +68,19 @@ const server = Bun.serve<Args>({
         if (data.messageId || data.content) {
           let message;
 
-          const addKey = `chat:${data.channelId}:messages`;
-          const updateKey = `chat:${data.channelId}:messages:update`;
+          const createChannelMessageKey = `chat:${data.channelId}:messages`;
+          const updateChannelMessageKey = `chat:${data.channelId}:messages:update`;
 
           switch (data.key) {
-            case addKey:
-              message = await createMessage({
-                ...data,
+            case createChannelMessageKey:
+              message = await createChannelMessage({
+                ...(data as AddChannelMessagePayload),
                 profile
               });
               break;
-            case updateKey:
-              message = await updateMessage({
-                ...data,
+            case updateChannelMessageKey:
+              message = await updateChannelMessage({
+                ...(data as UpdateChannelMessagePayload),
                 profile
               });
           }
