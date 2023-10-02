@@ -18,7 +18,7 @@ export const ChatBeginning = ({ name, type }: ChatWelcomeProps) => {
         {type === "channel" ? "Welcome to #" : ""}
         {name}
       </p>
-      <p className="text-sm text-zinc-200">
+      <p className="text-zinc-400">
         {type === "channel"
           ? `This is the start of the #${name} channel.`
           : `This is the start of your conversation with ${name}`}

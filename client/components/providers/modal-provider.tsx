@@ -1,10 +1,10 @@
 "use client";
 
-import { CreateChannelModal } from "components/modals/create-channel-modal";
 import { DeleteChannelModal } from "components/modals/delete-channel-modal";
 import { EditChannelModal } from "components/modals/edit-channel-modal";
 import { MembersModal } from "components/modals/members-modal";
 import { MessageFileModal } from "components/modals/message-file-modal";
+import { CreateChannelModal } from "features/server/components/CreateChannelModal";
 import { CreateServerModal } from "features/server/components/CreateServerModal";
 import { DeleteServerModal } from "features/server/components/DeleteServerModal";
 import { EditServerModal } from "features/server/components/EditServerModal";
