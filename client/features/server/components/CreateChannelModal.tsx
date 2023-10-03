@@ -190,31 +190,6 @@ export const CreateChannelModal = () => {
                           );
                         })}
                       </RadioGroup>
-                      {/* <Select
-                        disabled={isLoading}
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger className="border-0 bg-zinc-700/75 text-base text-zinc-200 outline-none ring-offset-0 focus:ring-0 focus:ring-offset-0">
-                            <SelectValue placeholder="Select a channel type" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="bg-backgroundDark">
-                          {Object.values(ChannelType).map(type => {
-                            return (
-                              <SelectItem
-                                key={type}
-                                value={type}
-                                className="cursor-pointer bg-red-500 text-base hover:brightness-75"
-                              >
-                                {type.charAt(0).toUpperCase() +
-                                  type.slice(1).toLowerCase()}
-                              </SelectItem>
-                            );
-                          })}
-                        </SelectContent>
-                      </Select> */}
                       <FormMessage />
                     </FormItem>
                   );

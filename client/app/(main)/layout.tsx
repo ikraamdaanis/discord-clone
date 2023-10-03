@@ -1,10 +1,15 @@
 import { NavigationSidebar } from "components/navigation/NavigationSidebar";
 import { SocketProvider } from "components/providers/socket-provider";
 import { currentProfile } from "features/profile/utils/currentProfile";
+import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 
 const MainLayout = async ({ children }: { children: ReactNode }) => {
   const profile = await currentProfile();
+
+  if (!profile?.profileComplete) {
+    return redirect("/complete-profile");
+  }
 
   return (
     <SocketProvider profileId={profile?.id || ""}>
