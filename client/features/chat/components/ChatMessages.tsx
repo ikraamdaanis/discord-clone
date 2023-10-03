@@ -8,7 +8,9 @@ import { ChatBeginning } from "features/chat/components/ChatBeginning";
 import { useChatQuery } from "features/chat/hooks/useChatQuery";
 import { useChatSocket } from "features/chat/hooks/useChatSocket";
 import { MessageType, MessageWithMemberWithProfile } from "features/chat/types";
+import { cn } from "lib/utils";
 import { Loader2, ServerCrash } from "lucide-react";
+import { isMobile } from "react-device-detect";
 import { ChatMessage } from "./ChatMessage";
 
 interface ChatMessagesProps {
@@ -68,7 +70,12 @@ export const ChatMessages = ({
   }
 
   return (
-    <div className="flex h-[calc(100vh-48px-88px)] flex-col">
+    <div
+      className={cn(
+        "flex h-[calc(100vh-48px-88px)] flex-col",
+        isMobile && "h-[calc(100vh-48px-128px)]"
+      )}
+    >
       <InfiniteScroller
         fetchNextPage={fetchNextPage}
         hasNextPage={hasNextPage || false}

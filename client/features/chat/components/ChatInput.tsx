@@ -78,7 +78,10 @@ export const ChatInput = ({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="sticky bottom-0 z-10 bg-backgroundDark"
+      >
         <FormField
           control={form.control}
           name="content"
