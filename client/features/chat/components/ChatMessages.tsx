@@ -47,7 +47,7 @@ export const ChatMessages = ({
   });
 
   const rows = data?.pages.flatMap(
-    page => page.items
+    page => page?.items || []
   ) as MessageWithMemberWithProfile[];
 
   useChatSocket({ queryKey, addKey, updateKey });

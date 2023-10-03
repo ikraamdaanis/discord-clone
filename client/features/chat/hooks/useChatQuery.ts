@@ -1,4 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { MessagesQuery } from "features/chat/types";
 import qs from "query-string";
 
 type ChatQueryProps = {
@@ -32,7 +33,7 @@ export const useChatQuery = ({
     return res.json();
   }
 
-  return useInfiniteQuery({
+  return useInfiniteQuery<MessagesQuery["pages"][0]>({
     queryKey: [queryKey],
     queryFn: fetchMessages,
     getNextPageParam: lastPage => lastPage?.nextCursor || false,
