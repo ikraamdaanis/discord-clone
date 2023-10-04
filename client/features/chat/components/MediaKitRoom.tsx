@@ -8,12 +8,11 @@ import { useEffect, useState } from "react";
 
 type MediaRoomProps = {
   chatId: string;
-  video: boolean;
   audio: boolean;
 };
 
 /** Audio/video chatroom via LiveKit. */
-export const MediaKitRoom = ({ chatId, video, audio }: MediaRoomProps) => {
+export const MediaKitRoom = ({ chatId, audio }: MediaRoomProps) => {
   const { user } = useUser();
 
   const [token, setToken] = useState("");
@@ -50,7 +49,6 @@ export const MediaKitRoom = ({ chatId, video, audio }: MediaRoomProps) => {
       serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
       token={token}
       connect={true}
-      video={video}
       audio={audio}
     >
       <VideoConference />

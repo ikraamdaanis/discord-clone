@@ -62,7 +62,7 @@ const MemberPage = async ({ params, searchParams }: MemberPageProps) => {
         type="conversation"
       />
       {searchParams.video && (
-        <MediaKitRoom chatId={conversation.id} video={true} audio={true} />
+        <MediaKitRoom chatId={conversation.id} audio={true} />
       )}
       {!searchParams.video && (
         <>
