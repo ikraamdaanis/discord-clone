@@ -46,8 +46,6 @@ export const ChatMessages = ({
     paramValue
   });
 
-  console.log("DATA: ", data);
-
   const rows = data?.pages.flatMap(
     page => page?.items || []
   ) as MessageWithMemberWithProfile[];
@@ -62,7 +60,7 @@ export const ChatMessages = ({
     );
   }
 
-  if (status === "error") {
+  if (status === "error" && !rows?.length) {
     return (
       <div className="flex h-[calc(100vh-48px-88px)] flex-1 flex-col items-center justify-center">
         <ServerCrash className="my-4 h-7 w-7 text-zinc-500" />
