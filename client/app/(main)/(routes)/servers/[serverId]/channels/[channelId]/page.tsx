@@ -3,7 +3,7 @@ import { ChannelType } from "@prisma/client";
 import { ChatHeader } from "features/chat/components/ChatHeader";
 import { ChatInput } from "features/chat/components/ChatInput";
 import { ChatMessages } from "features/chat/components/ChatMessages";
-import { MediaKitRoom } from "features/chat/components/MediaKitRoom";
+import { LiveKit } from "features/chat/components/LiveKit";
 import { currentProfile } from "features/profile/utils/currentProfile";
 import { db } from "lib/db";
 import { Metadata } from "next";
@@ -88,9 +88,7 @@ const ChannelPage = async ({ params }: ChannelPageProps) => {
           />
         </div>
       )}
-      {channel.type === ChannelType.AUDIO && (
-        <MediaKitRoom chatId={channel.id} audio={true} />
-      )}
+      {channel.type === ChannelType.AUDIO && <LiveKit chatId={channel.id} />}
     </div>
   );
 };

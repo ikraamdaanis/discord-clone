@@ -2,7 +2,7 @@ import { redirectToSignIn } from "@clerk/nextjs";
 import { ChatHeader } from "features/chat/components/ChatHeader";
 import { ChatInput } from "features/chat/components/ChatInput";
 import { ChatMessages } from "features/chat/components/ChatMessages";
-import { MediaKitRoom } from "features/chat/components/MediaKitRoom";
+import { LiveKit } from "features/chat/components/LiveKit";
 import { getOrCreateConversation } from "lib/conversation";
 import { currentProfile } from "features/profile/utils/currentProfile";
 import { db } from "lib/db";
@@ -61,9 +61,7 @@ const MemberPage = async ({ params, searchParams }: MemberPageProps) => {
         serverId={params.serverId}
         type="conversation"
       />
-      {searchParams.video && (
-        <MediaKitRoom chatId={conversation.id} audio={true} />
-      )}
+      {searchParams.video && <LiveKit chatId={conversation.id} />}
       {!searchParams.video && (
         <div className="mt-[48px]">
           <ChatMessages

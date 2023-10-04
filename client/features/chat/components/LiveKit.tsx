@@ -9,11 +9,10 @@ import { useEffect, useState } from "react";
 
 type MediaRoomProps = {
   chatId: string;
-  audio: boolean;
 };
 
-/** Audio/video chatroom via LiveKit. */
-export const MediaKitRoom = ({ chatId, audio }: MediaRoomProps) => {
+/** Audio and video chatroom via LiveKit. */
+export const LiveKit = ({ chatId }: MediaRoomProps) => {
   const router = useRouter();
 
   const { user } = useUser();
@@ -52,7 +51,7 @@ export const MediaKitRoom = ({ chatId, audio }: MediaRoomProps) => {
       serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
       token={token}
       connect={true}
-      audio={audio}
+      audio
       onDisconnected={() => {
         router.back();
       }}
