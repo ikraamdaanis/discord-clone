@@ -4,6 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import { LiveKitRoom, VideoConference } from "@livekit/components-react";
 import "@livekit/components-styles";
 import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type MediaRoomProps = {
@@ -13,6 +14,8 @@ type MediaRoomProps = {
 
 /** Audio/video chatroom via LiveKit. */
 export const MediaKitRoom = ({ chatId, audio }: MediaRoomProps) => {
+  const router = useRouter();
+
   const { user } = useUser();
 
   const [token, setToken] = useState("");
@@ -50,6 +53,9 @@ export const MediaKitRoom = ({ chatId, audio }: MediaRoomProps) => {
       token={token}
       connect={true}
       audio={audio}
+      onDisconnected={() => {
+        router.back();
+      }}
     >
       <VideoConference />
     </LiveKitRoom>

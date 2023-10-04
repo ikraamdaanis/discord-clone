@@ -54,7 +54,7 @@ export const ChatMessages = ({
 
   if (status == "loading") {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center">
+      <div className="flex h-[calc(100vh-48px-88px)] flex-1 flex-col items-center justify-center">
         <DiscourseLogo className="h-20 w-20 animate-pulse" />
       </div>
     );
@@ -62,7 +62,7 @@ export const ChatMessages = ({
 
   if (status === "error") {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center">
+      <div className="flex h-[calc(100vh-48px-88px)] flex-1 flex-col items-center justify-center">
         <ServerCrash className="my-4 h-7 w-7 text-zinc-500" />
         <p className="text-xs text-zinc-400">Something went wrong!</p>
       </div>

@@ -8,7 +8,7 @@ import { ServerSearch } from "features/server/components/ServerSearch";
 import { SidebarHeader } from "features/server/components/SidebarHeader";
 import { SidebarSection } from "features/server/components/SidebarSection";
 import { db } from "lib/db";
-import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from "lucide-react";
+import { Hash, Mic, ShieldAlert, ShieldCheck } from "lucide-react";
 import { redirect } from "next/navigation";
 
 type ServerSidebarProps = {
@@ -17,8 +17,7 @@ type ServerSidebarProps = {
 
 const iconMap = {
   [ChannelType.TEXT]: <Hash className="mr-2 h-4 w-4" />,
-  [ChannelType.AUDIO]: <Mic className="mr-2 h-4 w-4" />,
-  [ChannelType.VIDEO]: <Video className="mr-2 h-4 w-4" />
+  [ChannelType.AUDIO]: <Mic className="mr-2 h-4 w-4" />
 };
 
 const roleIconMap = {
@@ -65,10 +64,6 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
     server?.channels.filter(channel => channel.type === ChannelType.AUDIO) ||
     [];
 
-  const videoChannels =
-    server?.channels.filter(channel => channel.type === ChannelType.VIDEO) ||
-    [];
-
   const members = server?.members.filter(
     member => member.profileId !== profile.id
   );
@@ -81,7 +76,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
     ?.role;
 
   return (
-    <div className="bg-backgroundDark3 flex h-full w-full flex-col text-primary">
+    <div className="flex h-full w-full flex-col bg-backgroundDark3 text-primary">
       <SidebarHeader server={server} role={role} />
       <ScrollArea className="flex-1 px-3">
         <div className="mt-2">
@@ -103,15 +98,6 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
                   id: channel.id,
                   name: channel.name,
                   icon: iconMap[ChannelType.AUDIO]
-                }))
-              },
-              {
-                label: "Video Channels",
-                type: "channel",
-                data: videoChannels?.map(channel => ({
-                  id: channel.id,
-                  name: channel.name,
-                  icon: iconMap[ChannelType.VIDEO]
                 }))
               },
               {
@@ -157,26 +143,6 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
             />
             <div className="space-y-[2px]">
               {audioChannels.map(channel => (
-                <ServerChannel
-                  key={channel.id}
-                  channel={channel}
-                  role={role}
-                  server={server}
-                />
-              ))}
-            </div>
-          </div>
-        )}
-        {!!videoChannels?.length && (
-          <div className="mb-2">
-            <SidebarSection
-              sectionType="channels"
-              channelType={ChannelType.VIDEO}
-              role={role}
-              label="Video Channels"
-            />
-            <div className="space-y-[2px]">
-              {videoChannels.map(channel => (
                 <ServerChannel
                   key={channel.id}
                   channel={channel}

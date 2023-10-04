@@ -47,21 +47,6 @@ export const SocketProvider = ({
 
     setSocket(socket);
 
-    // const socketInstance = ClientIO(process.env.NEXT_PUBLIC_SITE_URL!, {
-    //   path: "/api/socket/io",
-    //   addTrailingSlash: false
-    // });
-    // socketInstance.on("connect", () => {
-    //   setIsConnected(true);
-    // });
-    // socketInstance.on("disconnect", () => {
-    //   setIsConnected(false);
-    // });
-    // setSocket(socketInstance);
-    // return () => {
-    //   socketInstance.disconnect();
-    // };
-
     return () => {
       if (socket.readyState === 1) {
         socket.close();

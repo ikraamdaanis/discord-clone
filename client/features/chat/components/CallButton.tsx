@@ -1,12 +1,12 @@
 "use client";
 
 import { ActionTooltip } from "components/ActionTooltip";
-import { Video, VideoOff } from "lucide-react";
+import { Phone, PhoneCall } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import qs from "query-string";
 
-/** Button to start video/audio chat in a direct conversation. */
-export const VideoChatButton = () => {
+/** Button to start a video/audio call in a direct conversation. */
+export const CallButton = () => {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -27,8 +27,8 @@ export const VideoChatButton = () => {
     router.push(url);
   };
 
-  const Icon = isVideo ? VideoOff : Video;
-  const tooltipLabel = isVideo ? "End video call" : "Start video call";
+  const Icon = isVideo ? PhoneCall : Phone;
+  const tooltipLabel = isVideo ? "End call" : "Start call";
 
   return (
     <ActionTooltip side="bottom" label={tooltipLabel}>

@@ -1,7 +1,7 @@
 import { SidebarToggle } from "components/SidebarToggle";
 import { HashIcon } from "components/icons/HashIcon";
+import { CallButton } from "features/chat/components/CallButton";
 import { SocketIndicator } from "features/chat/components/SocketIndicator";
-import { VideoChatButton } from "features/chat/components/VideoChatButton";
 import { MessageType } from "features/chat/types";
 import { UserAvatar } from "features/profile/components/ProfileAvatar";
 
@@ -33,7 +33,7 @@ export const ChatHeader = ({
       )}
       <p className="text-md font-semibold text-white">{name}</p>
       <div className="ml-auto flex items-center">
-        {type === "conversation" && <VideoChatButton />}
+        {type === "conversation" && <CallButton />}
         <SocketIndicator />
       </div>
     </div>

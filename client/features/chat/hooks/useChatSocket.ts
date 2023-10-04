@@ -43,6 +43,7 @@ export const useChatSocket = ({
 
   useEffect(() => {
     if (!socket) return;
+    console.log("hi");
 
     socket.addEventListener("open", () => {
       socket.send(JSON.stringify({ key: addKey }));

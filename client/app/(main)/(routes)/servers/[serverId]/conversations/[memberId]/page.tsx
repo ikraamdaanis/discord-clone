@@ -65,7 +65,7 @@ const MemberPage = async ({ params, searchParams }: MemberPageProps) => {
         <MediaKitRoom chatId={conversation.id} audio={true} />
       )}
       {!searchParams.video && (
-        <>
+        <div className="mt-[48px]">
           <ChatMessages
             member={currentMember}
             name={otherMember.profile.name}
@@ -85,7 +85,7 @@ const MemberPage = async ({ params, searchParams }: MemberPageProps) => {
               conversationId: conversation.id
             }}
           />
-        </>
+        </div>
       )}
     </div>
   );

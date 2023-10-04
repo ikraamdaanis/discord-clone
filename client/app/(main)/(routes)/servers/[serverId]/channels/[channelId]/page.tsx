@@ -64,9 +64,8 @@ const ChannelPage = async ({ params }: ChannelPageProps) => {
         serverId={channel.serverId}
         type="channel"
       />
-      <div className="h-[76px]" />
       {channel.type === ChannelType.TEXT && (
-        <>
+        <div className="mt-[48px]">
           <ChatMessages
             member={member}
             name={channel.name}
@@ -87,12 +86,9 @@ const ChannelPage = async ({ params }: ChannelPageProps) => {
               serverId: params.serverId
             }}
           />
-        </>
+        </div>
       )}
       {channel.type === ChannelType.AUDIO && (
-        <MediaKitRoom chatId={channel.id} audio={true} />
-      )}
-      {channel.type === ChannelType.VIDEO && (
         <MediaKitRoom chatId={channel.id} audio={true} />
       )}
     </div>

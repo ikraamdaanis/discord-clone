@@ -5,7 +5,7 @@ import { ActionTooltip } from "components/ActionTooltip";
 import { HashIcon } from "components/icons/HashIcon";
 import { ModalType, useModal } from "hooks/useModal";
 import { cn } from "lib/utils";
-import { Edit, Lock, Mic, Trash, Video } from "lucide-react";
+import { Edit, Lock, Mic, Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 
 const iconMap = (showLock: boolean) => ({
@@ -15,8 +15,7 @@ const iconMap = (showLock: boolean) => ({
       className="h-5 w-5 flex-shrink-0 text-zinc-400"
     />
   ),
-  [ChannelType.AUDIO]: Mic,
-  [ChannelType.VIDEO]: Video
+  [ChannelType.AUDIO]: Mic
 });
 
 type ServerChannelProps = {

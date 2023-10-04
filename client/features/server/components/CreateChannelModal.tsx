@@ -25,7 +25,7 @@ import { Input } from "components/ui/input";
 import { Label } from "components/ui/label";
 import { RadioGroup, RadioGroupItem } from "components/ui/radio-group";
 import { useModal } from "hooks/useModal";
-import { Mic, Video } from "lucide-react";
+import { Mic } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import qs from "query-string";
 import { useForm } from "react-hook-form";
@@ -38,10 +38,6 @@ const channelTypeMap = {
   },
   [ChannelType.AUDIO]: {
     icon: <Mic className="mr-2 h-6 w-6 text-zinc-300" />,
-    message: "Talk to your friends while you game, or just catch up"
-  },
-  [ChannelType.VIDEO]: {
-    icon: <Video className="mr-2 h-6 w-6 text-zinc-300" />,
     message: "Hang out together with voice, video and screen share"
   }
 };
