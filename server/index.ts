@@ -64,7 +64,7 @@ const server = Bun.serve<Args>({
     async message(ws: ServerWebSocket<Args>, message) {
       const data = JSON.parse(message as string) as Record<string, any>;
 
-      if (data.key) {
+      if (data.key && !ws.isSubscribed(data.key)) {
         ws.subscribe(data.key);
       }
 

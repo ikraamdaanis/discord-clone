@@ -42,19 +42,21 @@ export const useChatSocket = ({
   const setUsers = useUsers(state => state.setUsers);
 
   useEffect(() => {
+    if (!socket || socket.readyState !== 1) return;
+
+    // Subscribe to the chat messages.
+    socket?.send(JSON.stringify({ key: addKey }));
+    socket?.send(JSON.stringify({ key: updateKey }));
+  }, [addKey, socket, socket?.readyState, updateKey]);
+
+  useEffect(() => {
     if (!socket) return;
-    console.log("hi");
 
-    socket.addEventListener("open", () => {
-      socket.send(JSON.stringify({ key: addKey }));
-      socket.send(JSON.stringify({ key: updateKey }));
-    });
-
-    socket.addEventListener("message", e => {
+    function messageEvent(e: MessageEvent<string>) {
       // Data sent will be a string so parse into an object
       const event: SocketAddMessage = JSON.parse(e.data);
 
-      // Server sets a type for each message
+      // Server sets a type for each message.
       switch (event.key) {
         case addKey:
           queryClient.setQueryData(
@@ -123,10 +125,12 @@ export const useChatSocket = ({
           setUsers(event.users);
           break;
       }
-    });
+    }
+
+    socket.addEventListener("message", messageEvent);
 
     return () => {
-      socket.close();
+      socket.removeEventListener("message", messageEvent);
     };
   }, [addKey, queryClient, queryKey, setUsers, socket, updateKey]);
 };

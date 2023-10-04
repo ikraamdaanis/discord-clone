@@ -46,6 +46,8 @@ export const ChatMessages = ({
     paramValue
   });
 
+  console.log("DATA: ", data);
+
   const rows = data?.pages.flatMap(
     page => page?.items || []
   ) as MessageWithMemberWithProfile[];

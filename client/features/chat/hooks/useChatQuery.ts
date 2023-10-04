@@ -38,8 +38,9 @@ export const useChatQuery = ({
 
   return useInfiniteQuery<MessagesQuery["pages"][0]>({
     queryKey: [queryKey],
-    queryFn: fetchMessages,
+    queryFn: data => fetchMessages({ pageParam: data.pageParam }),
     getNextPageParam: lastPage => lastPage?.nextCursor || false,
-    refetchOnMount: true
+    refetchOnMount: true,
+    enabled: !!queryKey
   });
 };
