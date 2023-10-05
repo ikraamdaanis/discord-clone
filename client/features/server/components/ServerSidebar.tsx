@@ -1,6 +1,7 @@
 import { ChannelType, MemberRole } from "@prisma/client";
 import { ScrollArea } from "components/ui/scroll-area";
 import { Separator } from "components/ui/separator";
+import { UserStatusBar } from "features/profile/components/UserStatusBar";
 import { currentProfile } from "features/profile/utils/currentProfile";
 import { ServerChannel } from "features/server/components/ServerChannel";
 import { ServerMember } from "features/server/components/ServerMember";
@@ -169,6 +170,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
           </div>
         )}
       </ScrollArea>
+      <UserStatusBar />
     </div>
   );
 };
