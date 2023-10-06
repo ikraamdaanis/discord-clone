@@ -74,6 +74,13 @@ export const FileUpload = ({ endpoint, value, onChange }: FileUploadProps) => {
       onUploadError={(error: Error) => {
         console.error("Upload error: ", error);
       }}
+      appearance={{
+        button:
+          "bg-brandColour font-medium ut-uploading:bg-rose-400 after:bg-rose-400",
+        container: "border-zinc-500",
+        allowedContent: "text-zinc-300",
+        label: "text-zinc-200"
+      }}
     />
   );
 };
