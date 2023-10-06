@@ -49,10 +49,11 @@ export const CompleteProfileForm = ({ profile }: CompleteProfileFormProps) => {
       router.replace("/");
     } catch (error) {
       console.error(error);
-      form.reset();
     }
   }
+
   const isLoading = form.formState.isSubmitting;
+
   return (
     <div className="w-[440px] rounded-sm bg-backgroundDark p-4">
       <h2 className="py-4 text-center text-2xl font-semibold text-zinc-200">
