@@ -63,7 +63,6 @@ export const InitialModal = () => {
       window.location.reload();
     } catch (error) {
       console.error(error);
-      form.reset();
     }
   }
 

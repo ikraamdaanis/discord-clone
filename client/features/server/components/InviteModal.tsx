@@ -51,10 +51,10 @@ export const InviteModal = () => {
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
       <DialogContent
-        className="bg-backgroundDark flex flex-col gap-0 overflow-hidden rounded-sm p-0 text-black md:rounded-sm"
+        className="flex flex-col gap-0 overflow-hidden rounded-sm bg-backgroundDark p-0 text-black md:rounded-sm"
         closeClassName="text-zinc-400 h-6 w-6"
       >
-        <DialogTitle className="text-md p-4 text-left font-medium text-zinc-100">
+        <DialogTitle className="text-md p-4 pb-0 text-left font-medium text-zinc-100">
           Invite Friends to {data.server?.name}
         </DialogTitle>
         <div className="p-4">
@@ -63,7 +63,7 @@ export const InviteModal = () => {
           </Label>
           <div className="mt-2 flex items-center gap-x-2">
             <Input
-              className="bg-backgroundDark2 border-0 text-zinc-300 focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="border-0 bg-backgroundDark2 text-zinc-300 focus-visible:ring-0 focus-visible:ring-offset-0"
               value={inviteUrl}
               disabled={isLoading}
               readOnly
@@ -72,7 +72,7 @@ export const InviteModal = () => {
               size="icon"
               onClick={onCopy}
               disabled={isLoading}
-              className="bg-brandColour hover:bg-brandColour/80 text-zinc-100"
+              className="bg-brandColour text-zinc-100 hover:bg-brandColour/80"
             >
               {copied ? (
                 <Check className="h-4 w-4" />
