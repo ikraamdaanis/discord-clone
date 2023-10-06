@@ -64,31 +64,33 @@ const ChannelPage = async ({ params }: ChannelPageProps) => {
         serverId={channel.serverId}
         type="channel"
       />
-      {channel.type === ChannelType.TEXT && (
-        <div className="mt-[48px]">
-          <ChatMessages
-            member={member}
-            name={channel.name}
-            channelId={channel.id}
-            type="channel"
-            apiUrl="/api/messages"
-            paramKey="channelId"
-            paramValue={channel.id}
-            socketKey={`chat:${channel.id}`}
-          />
-          <ChatInput
-            name={channel.name}
-            type="channel"
-            apiUrl="/api/socket/messages"
-            socketKey={`chat:${channel.id}`}
-            query={{
-              channelId: channel.id,
-              serverId: params.serverId
-            }}
-          />
-        </div>
-      )}
-      {channel.type === ChannelType.AUDIO && <LiveKit chatId={channel.id} />}
+      <div className="mt-[48px] h-full">
+        {channel.type === ChannelType.AUDIO && <LiveKit chatId={channel.id} />}
+        {channel.type === ChannelType.TEXT && (
+          <>
+            <ChatMessages
+              member={member}
+              name={channel.name}
+              channelId={channel.id}
+              type="channel"
+              apiUrl="/api/messages"
+              paramKey="channelId"
+              paramValue={channel.id}
+              socketKey={`chat:${channel.id}`}
+            />
+            <ChatInput
+              name={channel.name}
+              type="channel"
+              apiUrl="/api/socket/messages"
+              socketKey={`chat:${channel.id}`}
+              query={{
+                channelId: channel.id,
+                serverId: params.serverId
+              }}
+            />
+          </>
+        )}
+      </div>
     </div>
   );
 };

@@ -61,30 +61,32 @@ const MemberPage = async ({ params, searchParams }: MemberPageProps) => {
         serverId={params.serverId}
         type="conversation"
       />
-      {searchParams.video && <LiveKit chatId={conversation.id} />}
-      {!searchParams.video && (
-        <div className="mt-[48px]">
-          <ChatMessages
-            member={currentMember}
-            name={otherMember.profile.name}
-            channelId={conversation.id}
-            type="conversation"
-            apiUrl="/api/direct-messages"
-            paramKey="conversationId"
-            paramValue={conversation.id}
-            socketKey={`direct:${conversation.id}`}
-          />
-          <ChatInput
-            name={otherMember.profile.name}
-            type="conversation"
-            apiUrl="/api/socket/direct-messages"
-            socketKey={`direct:${conversation.id}`}
-            query={{
-              conversationId: conversation.id
-            }}
-          />
-        </div>
-      )}
+      <div className="mt-[48px] h-full">
+        {searchParams.video && <LiveKit chatId={conversation.id} />}
+        {!searchParams.video && (
+          <>
+            <ChatMessages
+              member={currentMember}
+              name={otherMember.profile.name}
+              channelId={conversation.id}
+              type="conversation"
+              apiUrl="/api/direct-messages"
+              paramKey="conversationId"
+              paramValue={conversation.id}
+              socketKey={`direct:${conversation.id}`}
+            />
+            <ChatInput
+              name={otherMember.profile.name}
+              type="conversation"
+              apiUrl="/api/socket/direct-messages"
+              socketKey={`direct:${conversation.id}`}
+              query={{
+                conversationId: conversation.id
+              }}
+            />
+          </>
+        )}
+      </div>
     </div>
   );
 };
