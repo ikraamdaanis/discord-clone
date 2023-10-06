@@ -102,7 +102,7 @@ export const CreateChannelModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-[460px] overflow-hidden bg-backgroundDark p-0">
+      <DialogContent className="max-w-[460px] overflow-hidden rounded-sm bg-backgroundDark p-0">
         <DialogHeader className="px-4 pt-6">
           <DialogTitle className="text-center text-2xl font-semibold">
             Create a Channel
@@ -162,7 +162,7 @@ export const CreateChannelModal = () => {
                           return (
                             <Label
                               htmlFor={type}
-                              className="bg-backgroundDark4 flex cursor-pointer items-center space-x-2 rounded-sm px-3 py-2.5"
+                              className="flex cursor-pointer items-center space-x-2 rounded-sm bg-backgroundDark4 px-3 py-2.5"
                               key={type}
                             >
                               <div>{channelTypeMap[type].icon}</div>
