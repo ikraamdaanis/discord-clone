@@ -86,7 +86,7 @@ export const EditServerModal = ({
         className="max-w-[440px] overflow-hidden rounded-sm bg-backgroundDark p-0"
         closeClassName="text-zinc-400 h-6 w-6"
       >
-        <DialogHeader className="mb-4 px-6 pt-8">
+        <DialogHeader className="p-4">
           <DialogTitle className="text-center text-2xl font-semibold text-zinc-100">
             Edit server
           </DialogTitle>

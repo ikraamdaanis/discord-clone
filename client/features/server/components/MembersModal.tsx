@@ -22,7 +22,6 @@ import {
 } from "components/ui/dropdown-menu";
 import { ScrollArea } from "components/ui/scroll-area";
 import { UserAvatar } from "features/profile/components/ProfileAvatar";
-import { useModal } from "hooks/useModal";
 import { cn } from "lib/utils";
 import {
   Check,
@@ -45,17 +44,27 @@ const roleIconMap = {
   ADMIN: <ShieldAlert className="h-4 w-4 text-rose-500" />
 };
 
+type EditServerModalProps = {
+  server: ServerWithMembersWithProfiles;
+  isOpen: boolean;
+  onClose: () => void;
+};
+
 /** Modal for managing members in a server. */
-export const MembersModal = () => {
+export const MembersModal = ({
+  server,
+  isOpen,
+  onClose
+}: EditServerModalProps) => {
   const router = useRouter();
 
-  const { isOpen, onClose, type, data, onOpen } = useModal();
+  // const { isOpen, onClose, type, data, onOpen } = useModal();
 
   const [loadingId, setLoadingId] = useState("");
 
-  const isModalOpen = isOpen && type === "members";
+  // const isModalOpen = isOpen && type === "members";
 
-  const { server } = data as { server: ServerWithMembersWithProfiles };
+  // const { server } = data as { server: ServerWithMembersWithProfiles };
 
   async function onRoleChange(memberId: string, role: MemberRole) {
     try {
@@ -67,10 +76,9 @@ export const MembersModal = () => {
         }
       });
 
-      const response = await axios.patch(url, { role });
+      await axios.patch(url, { role });
 
       router.refresh();
-      onOpen("members", { server: response.data });
     } catch (error) {
       console.log(error);
     } finally {
@@ -88,10 +96,9 @@ export const MembersModal = () => {
         }
       });
 
-      const response = await axios.delete(url);
+      await axios.delete(url);
 
       router.refresh();
-      onOpen("members", { server: response.data });
     } catch (error) {
       console.log(error);
     } finally {
@@ -100,12 +107,12 @@ export const MembersModal = () => {
   };
 
   return (
-    <Dialog open={isModalOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent
         className="max-w-[440px] overflow-hidden rounded-sm bg-backgroundDark p-0"
         closeClassName="text-zinc-400 h-6 w-6"
       >
-        <DialogHeader className="px-6 pt-8">
+        <DialogHeader className="p-4 pb-0">
           <DialogTitle className="text-center text-2xl font-semibold text-zinc-100">
             Manage Members
           </DialogTitle>
@@ -138,9 +145,15 @@ export const MembersModal = () => {
                             )}
                           >
                             {loadingId === member.id ? (
-                              <Loader2 className="ml-auto h-4 w-4 animate-spin text-zinc-500" />
+                              <Loader2
+                                className="ml-auto h-4 w-4 animate-spin text-zinc-500"
+                                focusable="false"
+                              />
                             ) : (
-                              <MoreVertical className="h-4 w-4 text-zinc-500" />
+                              <MoreVertical
+                                className="h-4 w-4 text-zinc-500"
+                                focusable="false"
+                              />
                             )}
                           </DropdownMenuTrigger>
                           <DropdownMenuContent side="left">

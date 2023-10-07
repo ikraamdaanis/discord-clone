@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger
 } from "components/ui/dropdown-menu";
 import { EditServerModal } from "features/server/components/EditServerModal";
+import { MembersModal } from "features/server/components/MembersModal";
 import { useModal } from "hooks/useModal";
 import {
   ChevronDown,
@@ -77,7 +78,9 @@ export const SidebarHeader = ({
           {isAdmin && (
             <DropdownMenuItem
               className="cursor-pointer px-3 py-2 text-sm"
-              onClick={() => onOpen("members", { server })}
+              onClick={() => {
+                setModal("editMembers");
+              }}
             >
               Manage Members
               <Users className="ml-auto h-4 w-4" />
@@ -118,7 +121,16 @@ export const SidebarHeader = ({
       <EditServerModal
         server={server}
         isOpen={modal === "editServer"}
-        onClose={() => setModal("")}
+        onClose={() => {
+          setModal("");
+        }}
+      />
+      <MembersModal
+        server={server}
+        isOpen={modal === "editMembers"}
+        onClose={() => {
+          setModal("");
+        }}
       />
     </>
   );
