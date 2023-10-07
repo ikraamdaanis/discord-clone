@@ -1,6 +1,6 @@
-import { UserAvatar } from "features/profile/components/ProfileAvatar";
+import { UserButton } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 import { currentProfile } from "features/profile/utils/currentProfile";
-import React from "react";
 
 /** Shows user's name and avatar in the sidebar */
 export const UserStatusBar = async () => {
@@ -9,9 +9,18 @@ export const UserStatusBar = async () => {
   if (!profile) return null;
 
   return (
-    <div className="bg-backgroundDark5 flex h-[52px] items-center px-2">
+    <div className="flex h-[52px] items-center bg-backgroundDark5 px-2">
       <div className="relative">
-        <UserAvatar src={profile.imageUrl} className="h-8 w-8 md:h-8 md:w-8" />
+        <UserButton
+          afterSignOutUrl="/"
+          appearance={{
+            baseTheme: dark,
+            elements: {
+              avatarBox: "h-8 w-8",
+              userButtonPopoverCard: "rounded-md"
+            }
+          }}
+        />
         <div className="absolute -bottom-1 -right-1 h-[16px] w-[16px] rounded-full border-[3px] border-backgroundDark2 bg-green-500" />
       </div>
       <div className="flex flex-col py-1 pl-2">

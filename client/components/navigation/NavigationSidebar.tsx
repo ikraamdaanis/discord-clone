@@ -1,5 +1,3 @@
-import { UserButton } from "@clerk/nextjs";
-import { dark } from "@clerk/themes";
 import { NavigationButtons } from "components/navigation/NavigationButtons";
 import { NavigationItem } from "components/navigation/navigation-item";
 import { ScrollArea } from "components/ui/scroll-area";
@@ -42,21 +40,8 @@ export const NavigationSidebar = async () => {
           })}
         </div>
       </ScrollArea>
-      <NavigationButtons />
       <Separator className="mx-auto h-[2px] w-10 rounded-md bg-zinc-700" />
-      <div className="mt-auto flex flex-col items-center gap-y-4 pb-3">
-        <UserButton
-          afterSignOutUrl="/"
-          appearance={{
-            baseTheme: dark,
-            elements: {
-              avatarBox: "h-12 w-12",
-              profilePage: "bg-red-500",
-              modalContent: "bg-red-500"
-            }
-          }}
-        />
-      </div>
+      <NavigationButtons />
     </div>
   );
 };
