@@ -1,6 +1,6 @@
 import { UserButton } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
-import { NavigationAction } from "components/navigation/navigation-action";
+import { NavigationButtons } from "components/navigation/NavigationButtons";
 import { NavigationItem } from "components/navigation/navigation-item";
 import { ScrollArea } from "components/ui/scroll-area";
 import { Separator } from "components/ui/separator";
@@ -42,7 +42,7 @@ export const NavigationSidebar = async () => {
           })}
         </div>
       </ScrollArea>
-      <NavigationAction />
+      <NavigationButtons />
       <Separator className="mx-auto h-[2px] w-10 rounded-md bg-zinc-700" />
       <div className="mt-auto flex flex-col items-center gap-y-4 pb-3">
         <UserButton

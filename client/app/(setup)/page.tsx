@@ -1,5 +1,5 @@
-import { InitialModal } from "components/modals/initial-modal";
 import { initialProfile } from "features/profile/utils/initialProfile";
+import { CreateServerModal } from "features/server/components/CreateServerModal";
 import { db } from "lib/db";
 import { RedirectType } from "next/dist/client/components/redirect";
 import { redirect } from "next/navigation";
@@ -25,7 +25,7 @@ const SetupPage = async () => {
     return redirect(`/servers/${server.id}`, RedirectType.push);
   }
 
-  return <InitialModal />;
+  return <CreateServerModal isOpen />;
 };
 
 export default SetupPage;

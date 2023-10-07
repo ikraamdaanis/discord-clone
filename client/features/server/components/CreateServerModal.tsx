@@ -21,8 +21,8 @@ import {
 } from "components/ui/form";
 import { Input } from "components/ui/input";
 import { FileUpload } from "features/chat/components/FileUpload";
-import { useModal } from "hooks/useModal";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -35,13 +35,27 @@ const formSchema = z.object({
   })
 });
 
+type CreateServerModalProps = {
+  isOpen: boolean;
+  onClose?: () => void;
+};
+
 /** Form to create a server. */
-export const CreateServerModal = () => {
+export const CreateServerModal = ({
+  isOpen,
+  onClose
+}: CreateServerModalProps) => {
   const router = useRouter();
 
-  const { isOpen, onClose, type } = useModal();
+  const [isMounted, setIsMounted] = useState(false);
 
-  const isModalOpen = isOpen && type === "createServer";
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // const { isOpen, onClose, type } = useModal();
+
+  // const isModalOpen = isOpen && type === "createServer";
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -52,6 +66,11 @@ export const CreateServerModal = () => {
   });
 
   const isLoading = form.formState.isSubmitting;
+
+  function handleClose() {
+    form.reset();
+    onClose?.();
+  }
 
   async function handleSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -64,13 +83,10 @@ export const CreateServerModal = () => {
     }
   }
 
-  function handleClose() {
-    form.reset();
-    onClose();
-  }
+  if (!isMounted) return null;
 
   return (
-    <Dialog open={isModalOpen} onOpenChange={handleClose}>
+    <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="max-w-[440px] overflow-hidden rounded-sm bg-backgroundDark p-0">
         <DialogHeader className="px-6 pt-8">
           <DialogTitle className="text-center text-2xl font-semibold text-zinc-100">

@@ -1,8 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Server } from "@prisma/client";
 import axios from "axios";
-import { FileUpload } from "features/chat/components/FileUpload";
 import { Button } from "components/ui/button";
 import {
   Dialog,
@@ -21,7 +21,7 @@ import {
   FormMessage
 } from "components/ui/form";
 import { Input } from "components/ui/input";
-import { useModal } from "hooks/useModal";
+import { FileUpload } from "features/chat/components/FileUpload";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -35,14 +35,19 @@ const formSchema = z.object({
   })
 });
 
-/** Form to update the server. */
-export const EditServerModal = () => {
+type EditServerModalProps = {
+  server: Server;
+  isOpen: boolean;
+  onClose: () => void;
+};
+
+/** Form to create/update the server. */
+export const EditServerModal = ({
+  server,
+  isOpen,
+  onClose
+}: EditServerModalProps) => {
   const router = useRouter();
-
-  const { isOpen, onClose, type, data } = useModal();
-  const { server } = data;
-
-  const isModalOpen = isOpen && type === "editServer";
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -58,6 +63,11 @@ export const EditServerModal = () => {
 
   const isLoading = form.formState.isSubmitting;
 
+  function handleClose() {
+    form.reset();
+    onClose();
+  }
+
   async function handleSubmit(values: z.infer<typeof formSchema>) {
     try {
       await axios.patch(`/api/servers/${server?.id}`, values);
@@ -70,13 +80,8 @@ export const EditServerModal = () => {
     }
   }
 
-  function handleClose() {
-    form.reset();
-    onClose();
-  }
-
   return (
-    <Dialog open={isModalOpen} onOpenChange={handleClose}>
+    <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent
         className="max-w-[440px] overflow-hidden rounded-sm bg-backgroundDark p-0"
         closeClassName="text-zinc-400 h-6 w-6"
@@ -137,7 +142,7 @@ export const EditServerModal = () => {
                 }}
               />
             </div>
-            <DialogFooter className="bg-backgroundDark2 px-6 py-4">
+            <DialogFooter className="bg-backgroundDark3 px-6 py-4">
               <Button variant="primary" disabled={isLoading}>
                 Save
               </Button>
