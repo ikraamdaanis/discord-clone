@@ -6,7 +6,6 @@ import { MessageFileModal } from "components/modals/message-file-modal";
 import { CreateChannelModal } from "features/server/components/CreateChannelModal";
 import { DeleteServerModal } from "features/server/components/DeleteServerModal";
 import { InviteModal } from "features/server/components/InviteModal";
-import { LeaveServerModal } from "features/server/components/LeaveServerModal";
 import { useEffect, useState } from "react";
 
 export const ModalProvider = () => {
@@ -20,7 +19,6 @@ export const ModalProvider = () => {
 
   return (
     <>
-      <LeaveServerModal />
       <DeleteServerModal />
       <CreateChannelModal />
       <EditChannelModal />

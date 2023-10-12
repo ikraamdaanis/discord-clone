@@ -1,5 +1,6 @@
 "use client";
 
+import { Server } from "@prisma/client";
 import axios from "axios";
 import { Button } from "components/ui/button";
 import {
@@ -10,20 +11,24 @@ import {
   DialogHeader,
   DialogTitle
 } from "components/ui/dialog";
-import { useModal } from "hooks/useModal";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+type LeaveServerModalProps = {
+  server: Server;
+  isOpen: boolean;
+  onClose: () => void;
+};
+
 /** Confirmation modal for a member leaving a server. */
-export const LeaveServerModal = () => {
+export const LeaveServerModal = ({
+  server,
+  isOpen,
+  onClose
+}: LeaveServerModalProps) => {
   const router = useRouter();
 
-  const { isOpen, onClose, type, data } = useModal();
-  const { server } = data;
-
   const [isLoading, setIsLoading] = useState(false);
-
-  const isModalOpen = isOpen && type === "leaveServer";
 
   async function handleClick() {
     try {
@@ -31,7 +36,6 @@ export const LeaveServerModal = () => {
 
       await axios.patch(`/api/servers/${server?.id}/leave`);
 
-      onClose();
       router.push("/");
     } catch (error) {
       console.error(error);
@@ -41,26 +45,27 @@ export const LeaveServerModal = () => {
   }
 
   return (
-    <Dialog open={isModalOpen} onOpenChange={onClose}>
-      <DialogContent className="overflow-hidden bg-white p-0 text-black">
-        <DialogHeader className="px-6 pt-8">
-          <DialogTitle className="text-center text-2xl font-bold">
-            Leave Server
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent
+        className="flex flex-col gap-0 overflow-hidden rounded-sm bg-backgroundDark p-0 text-black md:rounded-sm"
+        closeClassName="text-zinc-400 h-6 w-6"
+      >
+        <DialogHeader className="p-4">
+          <DialogTitle className="mb-2 text-left text-xl font-semibold text-zinc-100">
+            Leave &#39;{server?.name}&#39;
           </DialogTitle>
-          <DialogDescription className="text-center text-zinc-500">
+          <DialogDescription className="text-left text-base text-zinc-300">
             Are you sure you want to leave{" "}
-            <span className="font-semibold text-indigo-500">
-              {server?.name}
-            </span>
-            ?
+            <span className="font-semibold">{server?.name}</span>? You won&#39;t
+            be able to re-join this server unless you are re-invited.
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className="bg-gray-100 px-6 py-4">
+        <DialogFooter className="bg-backgroundDark3 px-6 py-4">
           <div className="flex w-full items-center justify-end gap-2">
             <Button
               disabled={isLoading}
               variant="link"
-              className="text-zinc-800"
+              className="text-zinc-200"
               onClick={() => onClose()}
             >
               Cancel
@@ -68,7 +73,8 @@ export const LeaveServerModal = () => {
             <Button
               disabled={isLoading}
               onClick={() => handleClick()}
-              className="bg-red-500 text-white hover:bg-red-500/90"
+              variant="primary"
+              className="rounded-sm"
             >
               Leave Server
             </Button>
