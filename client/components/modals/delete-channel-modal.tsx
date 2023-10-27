@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import qs from "query-string";
 import { useState } from "react";
 
+/** Modal for confirming channel deletion. */
 export const DeleteChannelModal = () => {
   const router = useRouter();
 
