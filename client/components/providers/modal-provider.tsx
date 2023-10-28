@@ -1,6 +1,5 @@
 "use client";
 
-import { DeleteChannelModal } from "components/modals/delete-channel-modal";
 import { EditChannelModal } from "components/modals/edit-channel-modal";
 import { MessageFileModal } from "components/modals/message-file-modal";
 import { CreateChannelModal } from "features/server/components/CreateChannelModal";
@@ -22,7 +21,6 @@ export const ModalProvider = () => {
       <DeleteServerModal />
       <CreateChannelModal />
       <EditChannelModal />
-      <DeleteChannelModal />
       <InviteModal />
       <MessageFileModal />
     </>
