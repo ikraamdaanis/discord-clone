@@ -10,7 +10,7 @@ export const UserStatusBar = async () => {
 
   return (
     <div className="flex h-[52px] items-center bg-backgroundDark5 px-2">
-      <div className="relative">
+      <div className="relative h-8 w-8 animate-pulse rounded-full bg-zinc-500">
         <UserButton
           afterSignOutUrl="/"
           appearance={{

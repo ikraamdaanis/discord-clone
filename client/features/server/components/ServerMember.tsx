@@ -43,7 +43,7 @@ export const ServerMember = ({ member }: ServerMemberProps) => {
         !isOnline && "opacity-30"
       )}
     >
-      <div className="relative">
+      <div className="relative h-8 w-8 animate-pulse rounded-full bg-zinc-500">
         <UserAvatar
           src={member.profile.imageUrl}
           className="h-8 w-8 md:h-8 md:w-8"
