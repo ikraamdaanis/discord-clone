@@ -1,8 +1,9 @@
 #!make
 include .env
 
-install: 
+install:
 	bun install
+	bunx prisma generate
 
 dev:
 	bun --hot run index.ts

@@ -1,8 +1,8 @@
 #!make
 include .env
 
-install: 
-	bun install 
+install:
+	bun install
 	bunx prisma generate
 
 dev:
@@ -10,3 +10,6 @@ dev:
 
 ts-lint:
 	bun ts-lint
+
+update-db:
+	bunx prisma db push
